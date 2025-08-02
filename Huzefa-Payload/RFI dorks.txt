@@ -1,0 +1,389 @@
+    inurl:/modules/My_eGallery/public/displayCategory.php?basepath=
+     
+    inurl:/modules/mod_mainmenu.php?mosConfig_absolute_path=
+     
+    inurl:/include/new-visitor.inc.php?lvc_include_dir=
+     
+    inurl:/_functions.php?prefix=
+     
+    inurl:/cpcommerce/_functions.php?prefix=
+     
+    inurl:/modules/coppermine/themes/default/theme.php?THEME_DIR=
+     
+    inurl:/modules/agendax/addevent.inc.php?agendax_path=
+     
+    inurl:/ashnews.php?pathtoashnews=
+     
+    inurl:/eblog/blog.inc.php?xoopsConfig[xoops_url]=
+     
+    inurl:/pm/lib.inc.php?pm_path=
+     
+    inurl:/b2-tools/gm-2-b2.php?b2inc=
+     
+    inurl:/modules/mod_mainmenu.php?mosConfig_absolute_path=
+     
+    inurl:/modules/agendax/addevent.inc.php?agendax_path=
+     
+    inurl:/includes/include_once.php?include_file=
+     
+    inurl:/e107/e107_handlers/secure_img_render.php?p=
+     
+    inurl:/shoutbox/expanded.php?conf=
+     
+    inurl:/main.php?x=
+     
+    inurl:/myPHPCalendar/admin.php?cal_dir=
+     
+    inurl:/index.php/main.php?x=
+     
+    inurl:/index.php?include=
+     
+    inurl:/index.php?x=
+     
+    inurl:/index.php?open=
+     
+    inurl:/index.php?visualizar=
+     
+    inurl:/template.php?pagina=
+     
+    inurl:/index.php?pagina=
+     
+    inurl:/index.php?inc=
+     
+    inurl:/includes/include_onde.php?include_file=
+     
+    inurl:/index.php?page=
+     
+    inurl:/index.php?pg=
+     
+    inurl:/index.php?show=
+     
+    inurl:/index.php?cat=
+     
+    inurl:/index.php?file=
+     
+    inurl:/db.php?path_local=
+     
+    inurl:/index.php?site=
+     
+    inurl:/htmltonuke.php?filnavn=
+     
+    inurl:/livehelp/inc/pipe.php?HCL_path=
+     
+    inurl:/hcl/inc/pipe.php?HCL_path=
+     
+    inurl:/inc/pipe.php?HCL_path=
+     
+    inurl:/support/faq/inc/pipe.php?HCL_path=
+     
+    inurl:/help/faq/inc/pipe.php?HCL_path=
+     
+    inurl:/helpcenter/inc/pipe.php?HCL_path=
+     
+    inurl:/live-support/inc/pipe.php?HCL_path=
+     
+    inurl:/gnu3/index.php?doc=
+     
+    inurl:/gnu/index.php?doc=
+     
+    inurl:/phpgwapi/setup/tables_update.inc.php?appdir=
+     
+    inurl:/forum/install.php?phpbb_root_dir=
+     
+    inurl:/includes/calendar.php?phpc_root_path=
+     
+    inurl:/includes/setup.php?phpc_root_path=
+     
+    inurl:/inc/authform.inc.php?path_pre=
+     
+    inurl:/include/authform.inc.php?path_pre=
+     
+    inurl:index.php?nic=
+     
+    inurl:index.php?sec=
+     
+    inurl:index.php?content=
+     
+    inurl:index.php?link=
+     
+    inurl:index.php?filename=
+     
+    inurl:index.php?dir=
+     
+    inurl:index.php?document=
+     
+    inurl:index.php?view=
+     
+    inurl:*.php?sel=
+     
+    inurl:*.php?session=&content=
+     
+    inurl:*.php?locate=
+     
+    inurl:*.php?place=
+     
+    inurl:*.php?layout=
+     
+    inurl:*.php?go=
+     
+    inurl:*.php?catch=
+     
+    inurl:*.php?mode=
+     
+    inurl:*.php?name=
+     
+    inurl:*.php?loc=
+     
+    inurl:*.php?f=
+     
+    inurl:*.php?inf=
+     
+    inurl:*.php?pg=
+     
+    inurl:*.php?load=
+     
+    inurl:*.php?naam=
+     
+    allinurl:/index.php?page= site:*.dk
+     
+    allinurl:/index.php?file= site:*.dk
+     
+    INURL OR ALLINURL WITH:
+     
+    /temp_eg/phpgwapi/setup/tables_update.inc.php?appdir=
+     
+    /includes/header.php?systempath=
+     
+    /Gallery/displayCategory.php?basepath=
+     
+    /index.inc.php?PATH_Includes=
+     
+    /ashnews.php?pathtoashnews=
+     
+    /ashheadlines.php?pathtoashnews=
+     
+    /modules/xgallery/upgrade_album.php?GALLERY_BASEDIR=
+     
+    /demo/includes/init.php?user_inc=
+     
+    /jaf/index.php?show=
+     
+    /inc/shows.inc.php?cutepath=
+     
+    /poll/admin/common.inc.php?base_path=
+     
+    /pollvote/pollvote.php?pollname=
+     
+    /sources/post.php?fil_config=
+     
+    /modules/My_eGallery/public/displayCategory.php?basepath=
+     
+    /bb_lib/checkdb.inc.php?libpach=
+     
+    /include/livre_include.php?no_connect=lol&chem_absolu=
+     
+    /index.php?from_market=Y&pageurl=
+     
+    /modules/mod_mainmenu.php?mosConfig_absolute_path=
+     
+    /pivot/modules/module_db.php?pivot_path=
+     
+    /modules/4nAlbum/public/displayCategory.php?basepath=
+     
+    /derniers_commentaires.php?rep=
+     
+    /modules/coppermine/themes/default/theme.php?THEME_DIR=
+     
+    /modules/coppermine/include/init.inc.php?CPG_M_DIR=
+     
+    /modules/coppermine/themes/coppercop/theme.php?THEME_DIR=
+     
+    /coppermine/themes/maze/theme.php?THEME_DIR=
+     
+    /allmylinks/include/footer.inc.php?_AMLconfig[cfg_serverpath]=
+     
+    /allmylinks/include/info.inc.php?_AMVconfig[cfg_serverpath]=
+     
+    /myPHPCalendar/admin.php?cal_dir=
+     
+    /agendax/addevent.inc.php?agendax_path=
+     
+    /modules/mod_mainmenu.php?mosConfig_absolute_path=
+     
+    /modules/xoopsgallery/upgrade_album.php?GALLERY_BASEDIR=
+     
+    /main.php?page=
+     
+    /default.php?page=
+     
+    /index.php?action=
+     
+    /index1.php?p=
+     
+    /index2.php?x=
+     
+    /index2.php?content=
+     
+    /index.php?conteudo=
+     
+    /index.php?cat=
+     
+    /include/new-visitor.inc.php?lvc_include_dir=
+     
+    /modules/agendax/addevent.inc.php?agendax_path=
+     
+    /shoutbox/expanded.php?conf=
+     
+    /modules/xgallery/upgrade_album.php?GALLERY_BASEDIR=
+     
+    /pivot/modules/module_db.php?pivot_path=
+     
+    /library/editor/editor.php?root=
+     
+    /library/lib.php?root=
+     
+    /e107/e107_handlers/secure_img_render.php?p=
+     
+    /zentrack/index.php?configFile=
+     
+    /main.php?x=
+     
+    /becommunity/community/index.php?pageurl=
+     
+    /GradeMap/index.php?page=
+     
+    /index4.php?body=
+     
+    /side/index.php?side=
+     
+    /main.php?page=
+     
+    /es/index.php?action=
+     
+    /index.php?sec=
+     
+    /index.php?main=
+     
+    /index.php?sec=
+     
+    /index.php?menu=
+     
+    /html/page.php?page=
+     
+    /page.php?view=
+     
+    /index.php?menu=
+     
+    /main.php?view=
+     
+    /index.php?page=
+     
+    /content.php?page=
+     
+    /main.php?page=
+     
+    /index.php?x=
+     
+    /main_site.php?page=
+     
+    /index.php?L2=
+     
+    /content.php?page=
+     
+    /main.php?page=
+     
+    /index.php?x=
+     
+    /main_site.php?page=
+     
+    /index.php?L2=
+     
+    /index.php?show=
+     
+    /tutorials/print.php?page=
+     
+    /index.php?page=
+     
+    /index.php?level=
+     
+    /index.php?file=
+     
+    /index.php?inter_url=
+     
+    /index.php?page=
+     
+    /index2.php?menu=
+     
+    /index.php?level=
+     
+    /index1.php?main=
+     
+    /index1.php?nav=
+     
+    /index1.php?link=
+     
+    /index2.php?page=
+     
+    /index.php?myContent=
+     
+    /index.php?TWC=
+     
+    /index.php?sec=
+     
+    /index1.php?main=
+     
+    /index2.php?page=
+     
+    /index.php?babInstallPath=
+     
+    /main.php?body=
+     
+    /index.php?z=
+     
+    /main.php?view=
+     
+    /modules/PNphpBB2/includes/functions_admin.php?phpbb_root_path=
+     
+    /index.php?file=
+     
+    /modules/AllMyGuests/signin.php?_AMGconfig[cfg_serverpath]=
+        
+    inurl:"/lire.php?rub="
+     
+    inurl:"/os/pointer.php?url="
+     
+    inurl:"folder.php?id="
+     
+    inurl:"show.php?page="
+     
+    inurl:"index2.php?DoAction="
+     
+    inurl:"index.php?canal="
+     
+    inurl:"index.php?screen="
+     
+    inurl:"index.php?langc="
+     
+    inurl:"index.php?Language="
+     
+    inurl:"view.php?page="
+     
+    inurl:"template.php?goto="
+     
+    inurl:"video.php?content="
+     
+    inurl:"pages.php?page="
+     
+    inurl:"index1.php?choix="
+     
+    inurl:"index1.php?menu="
+     
+    inurl:"index2.php?ascii_seite="
+     
+    inurl:"index.php?go="
+     
+    inurl:"index1.php?="
+     
+    inurl:"lib/gore.php?libpath="
+     
+    inurl:"index2.php?p="

@@ -1,0 +1,17 @@
+inurl:?home=
+
+inurl:?file=
+
+inurl:?download=
+
+inurl:?main=
+
+inurl:?inc=
+
+inurl:?include_file=
+
+inurl:?content=
+
+inurl:?dir=
+
+inurl:?page=
