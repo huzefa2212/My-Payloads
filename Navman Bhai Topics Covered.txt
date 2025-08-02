@@ -1,0 +1,66 @@
+1. Information Gathering -
+
+IG is very important step in finding vulnerability because without knowing about the site we can perform futher
+steps:
+
+https://sitereport.netcraft.com/
+https://www.whoxy.com/
+https://subdomainfinder.c99.nl/
+https://sitecheck.sucuri.net/
+https://mxtoolbox.com/
+https://kitterman.com/spf/validate.html
+https://hackertarget.com/extract-links/
+http://exif.regex.info/exif.cgi
+
+2.Hotlinking -
+
+In this hacker can use our bandwidth by using our url for eg it can use our website image for his website so in this way our bandwidth will increase.
+
+altlab.com/hotlinkchecker.php  
+
+3. Clicking Jacking - 
+
+In this hacker an add in own website in backsite using our website
+http://lookout.net/test/clickjack.html
+
+4. Rate Limiting -
+In this hacker can send  multiple session request at a time to make or website dowm.
+We can check it or try it using Burpsuit only.
+
+5. Email Spoofing - 
+In this we can send a fake email using someone else domain.
+https://emkei.cz/
+
+HR@aiktc.com
+
+6. CRLF (Carriage return line feed) -
+
+In this we can change the proxy and send it to repeater what does it perform this can be done using burpsuit. 
+
+
+7. Parameter Polutions - 
+
+In this we can change the parameter of website and add our parameters.
+www.whitehat.com/blog?prod-id=124&categrogy=phones
+
+If we are able to add new paramter in the above website then it is vulberable by parameter pollution.
+www.whitehat.com/blog?prod-id=124&categrogy=phones&test=testpage 
+
+8. Open Redirect -
+
+In this we can redirect the website o page we want
+www.whitehat.com/about.html?url=blog.html
+
+If we are able to add new/our URL in the above website then it is vulberable by Open redirect.
+www.whitehat.com/about.html?url=bing.com  *note : Session id must be include without it it will definitely show the new url
+
+
+9. Dangerous Method Allow -
+
+Method (Head, PUT, DELETE, GET, POST , OPTIONS)
+Dangerous Method (PUT, DELETE)
+PUT - it allows to put a data on the server so if this methoad accessible hacker can exploit that data from the server.
+DELETE - it allows to delete the data which is store on server so if this method is accessible hacker can evenn delete that page from the server.
+
+ 
+
