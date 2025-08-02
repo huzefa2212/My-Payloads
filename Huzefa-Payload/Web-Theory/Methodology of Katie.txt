@@ -1,0 +1,14 @@
+PwnFox Extension
+cookie Editor Extension
+Logger++ Burp Extension
+JSON Web Token Burp Extension
+Brida, burp to frida Burp Extension
+InQL, Introspection GraphQL Scanner
+Autorize Burp Extension
+Json Decoder Burp Extension
+Param Miner Burp Extension
+Turbo Intruder Burp Extension
+ReconAlzer Burp Extension 
+
+
+"Stuck Youtube Video for POC"

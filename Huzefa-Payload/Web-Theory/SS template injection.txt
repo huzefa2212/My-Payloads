@@ -1,0 +1,57 @@
+Server-side template injection
+
+Server-side template injection is when an attacker is able to use native template syntax to inject a malicious payload into a template, which is then executed server-side.
+template engines generate web pages by combining fixed templates and users supplied data
+Server-side template injection attacks can occur when user input is concatenated directly into a template
+
+
+What is the impact of server-side template injection?
+an attacker can potentially achieve remote code execution
+even if a code injection is not possible an attacker can still use server-side template injection for other attacks, potentially gaining read access to sensitive data
+
+How do server-side template injection vulnerabilities arise?
+Server-side template injection vulnerabilities arise when user input is concatenated into templates rather than being passed in as data
+
+Finding server-side template injection
+
+***detect
+~ fuzzing the template by injecting a sequence of special characters commonly used in template expressions, such as ${{<%[%'"}}%\
+~ If an exception is raised then the injected template is being interpreted in some way
+two ways to detect if fuzzing doesnt work
+
+*plaintext
+~ eg if the input data is directly taken by the server eg render('Hello ' + username) then by adding a mathical expression we can detect if server is performing some operation on it eg http://vulnerable-website.com/?username=${7*7} , if the result is Hello 49 , then vulnerability is apparent
+
+*Code Context
+~cif the data is bring used in the template expression such as : 
+greeting = getQueryParameter('greeting')
+engine.render("Hello {{"+greeting+"}}", data) and the url is sent as http://vulnerable-website.com/?greeting=data.username the result would be Hello User ,this doesnt always result in an obvious xss , in that case first check if xss is possible in that parameter by injection arbitrary html in the value
+~ if you add any html in the value, if it doesnt have xss it will only return Hello,
+the next step is to break out of the statement using common template syntax and add html code after it eg http://vulnerable-website.com/?greeting=data.username}}<custom tag> , if this results in an error then you may be using the wrong template language or SSTI is not possible, it it is present it will show Hello User<custom tag>
+
+***Identify
+Once you have detected the template injection potential, the next step is to identify the template engine.
+many use similar syntax to avoid clashing with html characters
+Simply submitting invalid syntax is often enough because the resulting error message will tell you exactly what the template engine is
+eg an expression <%=foobar%> may generate ad error informing which language it is
+if this doesnt work you can do it manually ,A common way of doing this is to inject arbitrary mathematical operations using syntax from different template engines and see if it was successfully evaluated.
+payloads : ${7*7} {{7*'7'}} a{*comment*}b ${"z".join("ab")}
+***Exploit
+
+dqopi<%= File.open('/etc/passwd').read %>fdfdsf   --> camaleon cms v2.7.0 cve ssti
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

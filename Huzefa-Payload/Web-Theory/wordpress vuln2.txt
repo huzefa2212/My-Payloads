@@ -1,0 +1,10 @@
+sslnot properly configured
+ssl stripping -hsts not configured
+mixed content error
+xmlrpc enabled
+dos via xmlrpc
+hotlinking
+username enumeration
+clickjacking
+
+ip disclose via xmlrpc : https://www.netsparker.com/blog/web-security/xml-rpc-protocol-ip-disclosure-attacks/

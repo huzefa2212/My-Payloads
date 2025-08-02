@@ -1,0 +1,99 @@
+CSRF ATTACK TECHNIQUES
+
+##1 Perform the request without modifying the parameters, so we can see what the expected result is
+
+1)Remove the CSRF token completely (in this case, the token may not always be named "csrftoken")
+2)Modify one of the characters in the token (but keep the length the same)
+3)Remove the value of the token (but leave the parameter in place)
+4)Convert the POST request to a GET request or vice versa
+5)Remove any extra parameters(other than the actual details to be sent/changed)
+6)Reuse a csrf token from one account in another account for that same action
+7)Look for an Auth Token before the Logging-in process(intercept the POST req)(see if this token can then be used for all users)
+8)Try posting comments as other users or any other authenticated functions using your own csrf token
+
+If any of the above steps produce the same result as ##1 then we know that the end-point is likely to be vulnerable
+(there are some instances where you might get a successful response, but in fact no data has been modified and therefore the token hasn’t been checked)
+
+Other things to lookout for +------------
+
+1) Is the server side checking Full Length Token Based validation
+2) Check the length of the CSRF token for different accounts and different functions
+3) try to find the hashing algorithm, see Hashing function below ,find hash type https://crackstation.net/)
+4) check if the CSRF token is simply duplicated in a cookie
+5) remove the referrer header completely
+
+
+
+------------------------+ Method bypass +------------------------
+If the request is using a "weird" method, check if the method override functionality is working
+if it's using a PUT method you can try to use a POST : https://example.com/my/dear/api/val/num?_method=PUT
+
+using the headers:
+	X-HTTP-Method: POST
+	X-HTTP-Method-Override: POST
+	X-Method-Override: POST
+
+
+------------------------+ Content-Type change +------------------------
+
+severs logic may vary depending on the Content-Type used so you should try the values:
+
+application/x-www-form-urlencoded
+multipart/form-data
+text/plain
+
+
+
+
+
+
+------------+ Missing Protection--> X-Frame-Options: DENY +------------
+
+if a website does have some type of CSRF protection but don't have the "X-Frame-Options: DENY" header, we can use the iframe to exploit the CSRF
+
+Embed this code in your own website
+make a visitor access that page with the script while they are logged in to their account to execute the script in the background(in testing, use a test account on another browser or another private window)
+
+<iframe style="display:none" name="csrf-frame"></iframe>
+
+<form method='POST' action='https://targeted_websbite.com' target="csrf-frame" id="csrf-form">
+#for CSRF where you need to change photos
+<input type='hidden' name='photo' value='data:image/jpeg;base64,[base 64 encoded image here]'>
+#for CSRF where you need to textual values like username, email etc.
+<input type='hidden' name='actual name' value='value of parameter to set'>
+</form>
+<script>document.getElementById("csrf-form").submit()</script>
+
+
+
+
+
+
+------------+ CSRF PROTECTION BYPASS +------------
+
+------------+ CSRF TOKEN +------------
+
+1)Perform the same action with the same csrf with a few different accounts
+2)Check the CSRF Token,break it up if neccessary
+3)Check which part of the CSRF token remains the same
+4)hash userid+email, UserID+Name or anything unique about the user and see if it matches the csrf token or part of it
+
+
+
+------------+ CSRF PROTECTION BYPASS +------------
+CSRF Auth
+CSRF Auth verifies every single request of that user
+if an ttacker tries to make a request on behalf of the user they will be asked for credentials
+attacker can enter the username and any password then intercept that request
+this request will have a Valid CSRF Auth token Which is Reusable and Can authorise this specific user requests
+
+
+------------+ HASH FUNCTION +------------
+
+SHAH1 --> 160 bits (20 bytes x 2)
+MD5 --> 128 bits (16 bytes x 2)
+SHA-256  -->  256 bits (32 bytes x 2)
+SHA-384	--> 384 bits (48 bytes x 2)
+SHA-512	-->	512 bits (64 bytes x 2)
+
+cjsx1804CJ

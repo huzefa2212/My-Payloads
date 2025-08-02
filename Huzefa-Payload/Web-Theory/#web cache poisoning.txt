@@ -1,0 +1,43 @@
+----------------------------------------------------+
+----------------------------------------------------+
+Web Cache Poisoning
+----------------------------------------------------+
+----------------------------------------------------+
+
+
+Web cache poisoning is a technique that exploits the behavior of the web server and cache to send harmful HTTP responses to other users.
+It can be used to perform XSS, Redirection JavaScript injection and much more.
+
+It consists of 2 phases:
+1) the attacker checks which information is being cached by the cache server(eg cloudflare)
+2) the attacker then sends a dangerous script which gets cached so when the next user visits that link in a given time the server will generate the webpage with the cached dangerous script.
+
+
+how does it work?
+~ A cache server maintains the recently viewed pages of the users
+~ It uses some information to determine if the same page is requested by the users, this information is know as cache keys
+~ Cache keys are usually the request path and the Host header
+~ The component that are not included in the cache keys are said to be unkeyed
+~ If the cache keys of the current request match the cache keys of the previous request(by any user) then they are considered equivalent and will thus be sent the same cached copy of the resource
+~ The rest of the components are ignored, this is where an exploit can be injected
+
+Steps:
+1) Identify the unkeyed inputs
+this is usually the X-Forwarded-Host
+to avoid poisoning other users include a unique resource as a cache key eg /home?n=1234
+then add the X-Forwarded-Host: TESTERKEY
+
+2)Usually the response will contain the X-Forwarded-Host value in the Open Graph URL inside a meta tag eg.
+<meta property="og:image" content="https://TESTERKEY/cms/social.png" />
+
+3) If the unkeyed response is reflected in the response , check if it is being sanitized then watch the Cache-Hit response header
+~ first ensure Cache-Hit: miss , this means that the response is coming from the original server,
+~ Cache-Hit: hit , this means the response is coming from the cache server
+~ ensure that when you send payload it first comes from the original server which will then be cached , then the next response should reflect your payload
+
+Where to Check for unkeyed input:
+headers : usualy X-forwarded-Host
+cookies
+double headers : if a web server uses some techniques to protect against the above then you can used the
+X-forwarded-Host and X-Forwarded-Scheme: nohttps or any other headers togather to bypass the protection
+

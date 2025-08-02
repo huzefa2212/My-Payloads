@@ -1,0 +1,81 @@
+-----------------------------------------------------------------+
+-----------------------------------------------------------------+
+Host Header Injection
+-----------------------------------------------------------------+
+-----------------------------------------------------------------+
+
+
+~ Since many websites can be hosted in single IP address, the host header tells the server which websites you want to access
+~ because the host header is compeletly contrlled by the user if it is not properly validated many issues can arise
+~ host header injection is supplying an arbitury host instead of the actual one to the same web server
+
+-----------------------------------------------------------------+
+Techniques to look for Host header injection
+-----------------------------------------------------------------+
+
+1) Check for flawed validation  ----------+
+Host: vulnerable-website.com:bad-stuff-here 
+
+2) Inject duplicate Host headers  ----------+
+Host: vulnerable-website.com
+Host: bad-stuff-here
+
+3) add line wrapping  ----------+
+ Host: bad-stuff-here
+Host: vulnerable-website.com 
+
+4) Supply an absolute URL  ----------+
+GET https://vulnerable-website.com/ HTTP/1.1
+Host: bad-stuff-here 
+
+5) Inject host override headers  ----------+
+Host: vulnerable-website.com
+X-Forwarded-Host: bad-stuff-here 
+
+OR
+    
+X-Host
+    
+X-Forwarded-Server
+    
+X-HTTP-Host-Override
+    
+Forwarded
+
+-----------------------------------------------------------------+
+Exploits arising from Host Header Injection 
+-----------------------------------------------------------------+
+
+1) password reset poisoning  ------------+
+
+2) Web cache poisoning  ------------+
+adding multiple headers of which one has a dangerous payload
+	GET / HTTP/1.1
+	Host: victim-site.net
+	Host: hacker controlled site page.net
+
+3) Bypassing authentication  ------------+
+This is done by pretending  the request came from an internal source:
+	Get /admin
+	Host: Localhost
+
+4) virtual host bruteforcing / Accessing internal pages ------------+
+~ If the there is intermediary technology between the internal and external networks of the company eg a load balancer then it means that it has access to both the external and internal IP of the organization
+
+~ If there is an internal and external website is hosted on the same sever then there is a hogh chance that by bruteforcing fo rthe internal host we might be able to access the internal website
+
+~ to do this first test if there is an SSRF on the website :
+I ) intercept any request and send to burp
+II ) open burp collaborator and copy the payload 
+III ) change the host header of the request to that of the collaborator and see if there is any DNS request coming to burp if it is move to the next step
+IV ) change the host header to an internal ip to bruteforce eg 192.68.0.0/24 , 10.0.0.0/8 etc
+V ) request for arbituary pages to see which give an expected response
+
+
+5) Routing-based SSRF  ------------+
+
+
+
+
+
+

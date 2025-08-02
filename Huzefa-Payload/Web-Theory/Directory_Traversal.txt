@@ -1,0 +1,45 @@
+Directory Traversal 
+
+What is Directory Traversal:
+Directory traversal is a web security vulnerability that allows an attacker to read files on the server that is running an application.This might include application code and data, credentials for back-end systems, and sensitive operating system files
+
+How to Exploit
+ 
+Consider a shopping application that displays images of items for sale. Images are loaded via some HTML like the following:
+
+<img src="/loadImage?filename=218.png">
+
+The application implements no defenses against directory traversal attacks
+
+So an attacker can request the following URL to retrieve a files form the server by using this path "../../../etc/passwd"
+
+By doing this an attacker will able to see the files.
+
+Common Obstacles while exploting Directory Traversal:
+A) An application strip or block directory travrsal sequences like "../"
+	
+How to Bypass it:
+	1) You might be able to use an absolute path such as filename=/etc/passwd, to directly reference a file without using any traversal sequences.
+	2) You might be able to use nested traversal sequences, such as ....// or ....\/, when the inner sequence is stripped
+	3) You might be able to use various non-standard encodings, such as "..%252f..%252f..%252f" to bypass the input filter
+
+B) An application requires that the user-supplied filename must start with the expected base folder:
+
+How to bypass it:
+	1) It might be possible to include the required base folder followed by suitable traversal sequences. For example:
+
+"filename=/var/www/images/../../../etc/passwd"
+
+C) An application requires filename must end with an expected file extension
+	1)  use a null byte to terminate the file path before the required extension
+
+
+How to Prevent a Directory Traversal:
+	
+The most effective way to prevent file path traversal vulnerabilities is to avoid passing user-supplied input to filesystem APIs altogether.
+	1) The application should validate the user input before processing it
+	2) The validation should compare against a whitelist of permitted values
+	3) Verify that the input contains only permitted content, such as purely alphanumeric characters	
+
+
+

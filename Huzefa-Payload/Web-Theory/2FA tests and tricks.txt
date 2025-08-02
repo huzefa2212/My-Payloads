@@ -1,0 +1,44 @@
+----------------------------------------------------------
+-------------------+ 2 Factor Authentication +-------------------
+----------------------------------------------------------
+
+1) Skip the 2FA by directly trying to go to the next page, you need to know the next page(perform all actions as a legit user)
+
+2) Bruteforce the OTP
+
+3) Do a proper authentication, then reuse that token to perform 2FA again after logout or on another account
+
+4) Get an unused token(from your account) try and use that token on another account
+
+5) Check if the token is leaked in any of the requests
+
+6) Check if there is a CSRF or a Clickjacking vulnerability to disable the 2FA. 
+
+7) Check if 2FA is disabled after the email is changed or password is reset.
+
+8) Check for 2FA Code Leakage in Response
+
+9) Clickjacking on 2FA DisableFeature: Try to Iframe the page where the application allows a user to disable 2FA 
+
+10) Response Manipulation: Check Response of the 2FA Request, instead of an incorrect OTP reponse put a reponse that is valid eg
+if reponse is {"error","invalid OTP"} you could put {"Success","Correct OTP"}, get a valid response first to impersonate
+
+11) Status Code Manipulation : Change the Response Status Code to “200 OK” and see if it bypass the 2FA
+
+12) Try requesting multiple 2FA codes and see if previously requested Codes expire or not when a new code is requested(test after few hours or a day)
+
+13) Try requesting multiple 2FA codes and see if previously requested Codes expire or not when a new code is requested
+
+14) Enabling 2FA Doesn’t Expire Previous Session : Login to the application in two different browsers and enable 2FA from 1st session, check of the both the sessions are expiring or not
+
+15) If in the 2FA page appears some confidential information that you didn't know previously (like the phone number) this can be considered an information disclosure vulnerability.eg if u entered login email but phone number is also reflected.
+
+16) Referrer Check Bypass : If there is no success, change the refer header to the 2FA page URL
+
+17) check the 2FA Remember me function, check where it is stored eg cookie, a value in session/local storage, or simply attaching 2FA to an IP address
+
+18)  Ignoring 2FA when entering through a social network : 
+
+19) When disabling 2FA, the current code or password is requested or not
+
+20) f you see something like /v*/ in the application’s request, where * is a number, then it’s likely that you can switch to an older version of the API and test there.

