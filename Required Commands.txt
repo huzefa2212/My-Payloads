@@ -1,0 +1,44 @@
+0b7aec74
+
+NMAP Command :-
+nmap -sS -Pn -p- neonicheintegrated.in --open --exclude-ports 2000,5060,8008,8010,8015,8020 --min-rate=10000
+nmap  -p- -Pn -iL name.txt --exclude-ports 2000,5060,8008,8010,8015,8020 --min-rate=1000 -oA Nmap_Full_port_scan_name -vv --open
+ 
+For live IP's
+nmap -Pn -n -vv --open -iL ip.txt |grep -i "report for" |cut -d " " -f 5
+
+
+OpenSSL Command :-
+openssl s_client -connect domainname:port_number
+
+
+RUBY Command :-
+ruby parse-burp.rb -i file_name.xml -o file_name.csv
+
+
+INSPECT COMMAND :-
+{jquery-javascript}
+console.log(jQuery().jquery);
+
+{bootStrap}
+jQuery.fn.tooltip.Constructor.VERSION
+
+angular.version
+$.fn.jquery
+
+const loadsh=_.VERSION.console.log(loadsh);
+
+testssl https://domain.com
+
+Lucky13 and Breach
+testssl -L -E https://domain.com
+
+
+Nessus VM server:
+10.10.11.29
+.\admin
+Vapt@2022
+username:- insp
+pass:- sam@1234
+
+Inspir#$12072022
